@@ -1,0 +1,25 @@
+# Ignore bundler config.
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+
+# Ignore precompiled assets
+/public/assets/*
+
+# Ignore files on private directory
+/private
+
+# Ignore other unneeded files.
+*.swp
+*~
+.project
+.DS Store
+
+# Ignore application configuration
+/config/application.yml
