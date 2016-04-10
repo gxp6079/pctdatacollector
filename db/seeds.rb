@@ -11,6 +11,7 @@ puts 'Creating Admin User...'
 user = User.find_by email: ENV['ADMIN_USER_EMAIL']
 if user.nil? then user = User.create email: ENV['ADMIN_USER_EMAIL'],
                                   password: ENV['ADMIN_USER_PASSWORD'],
-                     password_confirmation: ENV['ADMIN_USER_PASSWORD']
+                     password_confirmation: ENV['ADMIN_USER_PASSWORD'],
+                                      role: ENV['ADMIN_ROLE']
 else puts 'Admin user already exists!' end
 puts 'User email: ' << user.email
