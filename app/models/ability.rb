@@ -6,6 +6,8 @@ class Ability
     user ||= User.new
     if user.has_role? :admin
       can :manage, :all
+    elsif user.has_role? :subject
+      can :home, StaticPage
     end
     
   end
