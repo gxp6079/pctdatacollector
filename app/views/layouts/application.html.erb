@@ -17,5 +17,13 @@
 
 <%= yield %>
 
+<% if user_signed_in? %>
+  <div id="information">
+    <div class="field">
+      <%= current_user.email %>(<%= link_to "Sign out", destroy_user_session_path, :method=>'delete' %>)
+    </div>
+  </div>
+<% end %>
+
 </body>
 </html>
