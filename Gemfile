@@ -7,6 +7,8 @@ gem 'rails', '4.1.4'
 gem 'pg', '~> 0.17.1'
 # Use figaro to securely configure the application
 gem 'figaro'
+# Authentication
+gem 'devise', '3.3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
