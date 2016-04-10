@@ -1,0 +1,37 @@
+<%= form_for(@permanence_time) do |f| %>
+  <% if @permanence_time.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@permanence_time.errors.count, "error") %> prohibited this permanence_time from being saved:</h2>
+
+      <ul>
+      <% @permanence_time.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :task_id %><br>
+    <%= f.text_field :task_id %>
+  </div>
+  <div class="field">
+    <%= f.label :system_example_id %><br>
+    <%= f.text_field :system_example_id %>
+  </div>
+  <div class="field">
+    <%= f.label :file_example_id %><br>
+    <%= f.text_field :file_example_id %>
+  </div>
+  <div class="field">
+    <%= f.label :user_id %><br>
+    <%= f.text_field :user_id %>
+  </div>
+  <div class="field">
+    <%= f.label :seconds %><br>
+    <%= f.number_field :seconds %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

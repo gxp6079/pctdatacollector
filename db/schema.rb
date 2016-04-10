@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410090330) do
+ActiveRecord::Schema.define(version: 20160410172001) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,21 @@ ActiveRecord::Schema.define(version: 20160410090330) do
   end
 
   add_index "file_examples", ["system_example_id"], name: "index_file_examples_on_system_example_id", using: :btree
+
+  create_table "permanence_times", force: true do |t|
+    t.integer  "task_id"
+    t.integer  "system_example_id"
+    t.integer  "file_example_id"
+    t.integer  "user_id"
+    t.integer  "seconds"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "permanence_times", ["file_example_id"], name: "index_permanence_times_on_file_example_id", using: :btree
+  add_index "permanence_times", ["system_example_id"], name: "index_permanence_times_on_system_example_id", using: :btree
+  add_index "permanence_times", ["task_id"], name: "index_permanence_times_on_task_id", using: :btree
+  add_index "permanence_times", ["user_id"], name: "index_permanence_times_on_user_id", using: :btree
 
   create_table "system_examples", force: true do |t|
     t.string   "name"

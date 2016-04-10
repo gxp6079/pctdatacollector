@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @permanence_time.task %>
+</p>
+
+<p>
+  <strong>System example:</strong>
+  <%= @permanence_time.system_example %>
+</p>
+
+<p>
+  <strong>File example:</strong>
+  <%= @permanence_time.file_example %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @permanence_time.user %>
+</p>
+
+<p>
+  <strong>Seconds:</strong>
+  <%= @permanence_time.seconds %>
+</p>
+
+<%= link_to 'Edit', edit_permanence_time_path(@permanence_time) %> |
+<%= link_to 'Back', permanence_times_path %>

@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :permanence_times
+
   resources :tasks
 
   resources :file_examples
