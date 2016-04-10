@@ -1,4 +1,6 @@
 class SystemExamplesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_system_example, only: [:show, :edit, :update, :destroy]
 
   # GET /system_examples
