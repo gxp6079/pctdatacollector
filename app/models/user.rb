@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
     ['admin', 'subject']
   end
 
+  def has_role?(role_name_symbol)
+    role_name_symbol == role.underscore.to_sym
+  end
+
   private
     def role_name
       if not User.available_roles().include?(role)
