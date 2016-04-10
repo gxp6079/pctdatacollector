@@ -11,10 +11,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160410075150) do
+ActiveRecord::Schema.define(version: 20160410085823) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "file_examples", force: true do |t|
+    t.integer  "system_example_id"
+    t.string   "name"
+    t.text     "code"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "file_examples", ["system_example_id"], name: "index_file_examples_on_system_example_id", using: :btree
 
   create_table "system_examples", force: true do |t|
     t.string   "name"

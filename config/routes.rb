@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :file_examples
+
   resources :system_examples
 
   devise_for :users
