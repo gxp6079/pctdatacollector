@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :tasks
+
   resources :file_examples
 
   resources :system_examples
