@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :system_examples
 
+  match '/taking_task', to: 'task_activities#taking', via: [:get]
+
   devise_for :users
   devise_scope :user do
     authenticated :user do
