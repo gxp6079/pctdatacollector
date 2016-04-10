@@ -1,0 +1,28 @@
+<% provide(:title, 'Listado de Usuarios') %>
+
+<h2>Listado de Usuarios</h2>
+
+<table>
+  <tr>
+    <th>Email</th>
+    <th>Ultimo acceso</th>
+    <th>Cant. acceso</th>
+  </tr>
+
+  <% @users.each do |user| %>
+    <tr>
+      <td><%= user.email %></td>
+      <td><%= user.last_sign_in_at %></td>
+      <td><%= user.sign_in_count %></td>
+      <td><%= link_to 'Mostrar', user %></td>
+      <td><%= link_to 'Editar', edit_user_path(user) %></td>
+      <td><%= link_to 'Borrar', user, method: :delete, data: { confirm: 'Esta seguro?' } %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br />
+
+<%= link_to 'Nuevo usuario', new_user_path %>
+
+<br />
