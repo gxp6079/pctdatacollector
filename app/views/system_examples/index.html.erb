@@ -1,0 +1,27 @@
+<h1>Listing system_examples</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @system_examples.each do |system_example| %>
+      <tr>
+        <td><%= system_example.name %></td>
+        <td><%= system_example.description %></td>
+        <td><%= link_to 'Show', system_example %></td>
+        <td><%= link_to 'Edit', edit_system_example_path(system_example) %></td>
+        <td><%= link_to 'Destroy', system_example, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New System example', new_system_example_path %>
