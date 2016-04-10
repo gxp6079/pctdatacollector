@@ -5,4 +5,10 @@ class ApplicationController < ActionController::Base
 
   before_filter :authenticate_user!, :except => ['home']
 
+  rescue_from CanCan::AccessDenied do |exception|
+    respond_to do |format|
+      format.html { redirect_to root_url, :alert => exception.message }
+      format.json { render json: "Forbidden", status: :forbidden }
+    end
+  end
 end
