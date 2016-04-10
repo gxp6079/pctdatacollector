@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   resources :system_examples
 
-  match '/taking_task', to: 'task_activities#taking', via: [:get]
+  match 'task_activities/take', to: 'task_activities#take', via: [:get]
 
   devise_for :users
   devise_scope :user do

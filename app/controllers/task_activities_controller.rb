@@ -1,5 +1,5 @@
 class TaskActivitiesController < ApplicationController
-  def taking
+  def take
     @task_activities = "Taking a task..."
   end
 end
