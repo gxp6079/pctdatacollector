@@ -9,6 +9,8 @@ gem 'pg', '~> 0.17.1'
 gem 'figaro'
 # Authentication
 gem 'devise', '3.3.0'
+# Authorization
+gem 'cancan', '1.6.10'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
