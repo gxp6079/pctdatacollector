@@ -1,4 +1,6 @@
 class FileExamplesController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_file_example, only: [:show, :edit, :update, :destroy]
 
   # GET /file_examples
