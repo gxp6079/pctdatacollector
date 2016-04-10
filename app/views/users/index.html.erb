@@ -5,6 +5,7 @@
 <table>
   <tr>
     <th>Email</th>
+    <th>Role</th>
     <th>Ultimo acceso</th>
     <th>Cant. acceso</th>
   </tr>
@@ -12,6 +13,7 @@
   <% @users.each do |user| %>
     <tr>
       <td><%= user.email %></td>
+      <td><%= user.role %></td>
       <td><%= user.last_sign_in_at %></td>
       <td><%= user.sign_in_count %></td>
       <td><%= link_to 'Mostrar', user %></td>
