@@ -1,3 +1,4 @@
+<div id="file_example_names" data-files="<%=h @files.collect{|f| f.name.split('.').first() } %>"></div>
 <div id="console">
   <ul>
     <% @files.each do |file_example| %>
@@ -31,29 +32,18 @@
 </div>
 
 <script>
+$(".field").hide();
+
+var datafields = { fields: []};
+var jfiles=$("#file_example_names").data("files");
+$.each(jfiles, function(index, value) {
+  datafields['fields'].push({selector: '#data-' + value, name: 'data-' + value});
+});
 
 $.screentime({
-  fields: [
-    { selector: '#data-account',
-      name: 'data-account'
-    },
-    { selector: '#data-transfer_money',
-      name: 'data-transfer_money'
-    },
-    { selector: '#data-creditor',
-      name: 'data-creditor'
-    },
-    { selector: '#data-pay_bills',
-      name: 'data-pay_bills'
-    },
-    { selector: '#data-main',
-      name: 'data-main'
-    }
-  ],
+  fields: datafields['fields'],
   reportInterval: 1,
   callback: function(data) {
-
-    console.log(data);
 
     $.each(data, function(key, val) {
       var $elem = $('#console li[data-field="' + key + '"]');
@@ -63,10 +53,6 @@ $.screentime({
       $elem.find('span').html(current += val);
     });
   }
-});
-
-$( document ).ready(function() {
-  $(".field").hide();
 });
 
 $(".sourcecode").click(function() {
