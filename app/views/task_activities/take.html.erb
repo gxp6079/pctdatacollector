@@ -1,7 +1,211 @@
-<div id="information">
-  <div class="field">
-    <h1><%= @task_activities %></h1>
-    <h2>Source Code Comprehension Experiment</h2>
-    <p>In this ecxperiment you will be ...</p>
-  </div>
+<div id="console">
+  <ul>
+    <li data-time="0" data-field="sourcecode-account">Account: <span>0</span>s</li>
+    <li data-time="0" data-field="sourcecode-transfermoney">TransferMoney: <span>0</span>s</li>
+    <li data-time="0" data-field="sourcecode-creditor">Creditor: <span>0</span>s</li>
+    <li data-time="0" data-field="sourcecode-paybills">PayBilss: <span>0</span>s</li>
+    <li data-time="0" data-field="sourcecode-main">Enactment: <span>0</span>s</li>
+  </ul>
 </div>
+
+<div id="srcmenu">
+  <ul>
+    <li><a class="sourcecode" href="#account" id="account">account.k</a></li>
+    <li><a class="sourcecode" href="#transfermoney" id="transfermoney">transfer_money.k</a></li>
+    <li><a class="sourcecode" href="#creditor" id="creditor">creditor.k</a></li>
+    <li><a class="sourcecode" href="#paybills" id="paybills">pay_bills.k</a></li>
+    <li><a class="sourcecode" href="#main" id="main">enactment.k</a></li>
+    <li><a></a></li>
+    <li><%= link_to "FINISH ACTIVITY", root_path %></li>
+  </ul>
+</div>
+
+<div id="content">
+  <div id="sourcecode-account" class="field">
+    <pre class="line-numbers"><code class="language-java">
+class Account {
+    private double balance_;
+    public Account() {
+        balance_ = 0.0;
+    }
+    public void increaseBalance(double amount) {
+        balance_ = balance_ + amount;
+    }
+    public void decreaseBalance(double amount) {
+        balance_ = balance_ - amount;
+    }
+    public double getBalance() {
+        return balance_;
+    }
+}
+    </code></pre>
+  </div>
+
+  <div id="sourcecode-transfermoney" class="field">
+    <pre class="line-numbers"><code class="language-java">
+context TransferMoney {
+    private double amountToTransfer_
+    public TransferMoney(Account source, Account destination, double amount) {
+        SourceAccount = source;
+        DestinationAccount = destination;
+        amountToTransfer_ = amount.clone;
+        Bank = this;
+    }
+    public double getAmountTotransfer() const {
+        return amountToTransfer_;
+    }
+    stageprop Bank {
+        public void transfer() {
+            SourceAccount.withdraw();
+            DestinationAccount.deposit();
+        }
+        public double gets_amount_to_transfer() {
+            return getAmountTotransfer();
+        }
+    } requires {
+        double getAmountTotransfer() const;
+    }
+    role SourceAccount {
+        public void withdraw() {
+            assert(Bank.gets_amount_to_transfer() <= this.getBalance(),
+                   "Insufficient funds")
+            this.decreaseBalance(Bank.gets_amount_to_transfer());
+        }
+    } requires {
+        void decreaseBalance(double amt);
+        double getBalance();
+    }
+    role DestinationAccount {
+        public void deposit() {
+            this.increaseBalance(Bank.gets_amount_to_transfer());
+        }
+    } requires {
+        void increaseBalance(double amt)
+    }
+    public void run() {
+        Bank.transfer();
+    }
+}
+    </code></pre>
+  </div>
+
+  <div id="sourcecode-creditor" class="field">
+
+    <pre class="line-numbers"><code class="language-java">
+class Creditor {
+    public Creditor(double amountOwed, Account account) {
+        amountOwed_ = amountOwed.clone;
+        account_ = account;
+    }
+    public Account getAccount() const { return account_ }
+    public double getAmountOwed() const { return amountOwed_ }
+    Account account_;
+    double amountOwed_;
+}
+    </code></pre>
+
+  </div>
+
+  <div id="sourcecode-paybills" class="field">
+    <pre class="line-numbers"><code class="language-java">
+context PayBills {
+    public PayBills(Account sa, List<Creditor> creditors) {
+        Creditors = creditors;
+        if(creditors.size() > 0) Creditors[0].receive_all_payments(sa)
+    }
+
+    role [] Creditors {
+        public void receive_all_payments(Account sa) {
+            Creditors[0].receives_payment(sa)
+        }
+        private void receives_payment(Account sa) {
+            new TransferMoney(sa, getAccount(), getAmountOwed()).run();
+            if(index < lastIndex) Creditors[index + 1].receives_payment(sa)
+        }
+    } requires {
+        public Account getAccount() const;
+        public double getAmountOwed() const;
+    }
+}
+    </code></pre>
+  </div>
+
+  <div id="sourcecode-main" class="field">
+    <pre class="line-numbers"><code class="language-java">
+{
+    Account src = new Account();
+    Account dst = new Account();
+
+    src.increaseBalance(155.0);
+    TransferMoney transfer = new TransferMoney(src, dst, 10.0);
+    transfer.run()
+
+    System.out.print("src: ").println(src.getBalance())
+    System.out.print("dst: ").println(dst.getBalance())
+
+    ///////////////////////////////////////////////////
+
+    List<Creditor> creditors = new List<Creditor>();
+    Creditor baker = new Creditor(50.0, new Account());
+    Creditor butcher = new Creditor(90.0, new Account());
+
+    creditors.add(baker);
+    creditors.add(butcher);
+    PayBills payments = new PayBills(src, creditors);
+
+    System.out.print("src: ").println(src.getBalance())
+    System.out.print("baker: ").println(baker.getAccount().getBalance())
+    System.out.print("butcher: ").println(butcher.getAccount().getBalance())
+}
+    </code></pre>
+  </div>
+
+</div>
+
+<script>
+
+$.screentime({
+  fields: [
+    { selector: '#sourcecode-account',
+      name: 'sourcecode-account'
+    },
+    { selector: '#sourcecode-transfermoney',
+      name: 'sourcecode-transfermoney'
+    },
+    { selector: '#sourcecode-creditor',
+      name: 'sourcecode-creditor'
+    },
+    { selector: '#sourcecode-paybills',
+      name: 'sourcecode-paybills'
+    },
+    { selector: '#sourcecode-main',
+      name: 'sourcecode-main'
+    }
+  ],
+  reportInterval: 1,
+  callback: function(data) {
+
+    console.log(data);
+
+    $.each(data, function(key, val) {
+      var $elem = $('#console li[data-field="' + key + '"]');
+      var current = parseInt($elem.data('time'), 10);
+
+      $elem.data('time', current + val);
+      $elem.find('span').html(current += val);
+    });
+  }
+});
+
+$( document ).ready(function() {
+  $("#content .field").hide();
+});
+
+$(".sourcecode").click(function() {
+  $(".field").hide();
+  $(".sourcecode").removeClass("active");
+  $("#sourcecode-" + this.id).show();
+  $(this).addClass("active");
+});
+
+</script>
