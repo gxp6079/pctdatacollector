@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
     ['admin', 'subject']
   end
 
+  def self.available_groups
+    ['n/a', '.k', '.java']
+  end
+
   def has_role?(role_name_symbol)
     role_name_symbol == role.underscore.to_sym
   end

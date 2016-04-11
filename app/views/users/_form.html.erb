@@ -15,9 +15,12 @@
   </div>
   <div class="field">
     <%= f.label :role %>
-    <%= f.text_field :role %>
+    <%= f.select :role, options_for_select(User.available_roles(), selected: f.object.role) %>
   </div>
-
+  <div class="field">
+    <%= f.label :group %>
+    <%= f.select :group, options_for_select(User.available_groups(), selected: f.object.group) %>
+  </div>
   <div class="actions">
     <%= f.submit %>
   </div>
