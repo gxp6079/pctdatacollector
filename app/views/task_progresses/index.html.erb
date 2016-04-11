@@ -13,8 +13,8 @@
   <tbody>
     <% @task_progresses.each do |task_progress| %>
       <tr>
-        <td><%= task_progress.task %></td>
-        <td><%= task_progress.user %></td>
+        <td><%= task_progress.task.name %></td>
+        <td><%= task_progress.user.email %></td>
         <td><%= task_progress.done %></td>
         <td><%= link_to 'Show', task_progress %></td>
         <td><%= link_to 'Edit', edit_task_progress_path(task_progress) %></td>
