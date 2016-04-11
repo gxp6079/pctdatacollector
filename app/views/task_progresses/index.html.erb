@@ -1,0 +1,29 @@
+<h1>Listing task_progresses</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Task</th>
+      <th>User</th>
+      <th>Done</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @task_progresses.each do |task_progress| %>
+      <tr>
+        <td><%= task_progress.task %></td>
+        <td><%= task_progress.user %></td>
+        <td><%= task_progress.done %></td>
+        <td><%= link_to 'Show', task_progress %></td>
+        <td><%= link_to 'Edit', edit_task_progress_path(task_progress) %></td>
+        <td><%= link_to 'Destroy', task_progress, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Task progress', new_task_progress_path %>

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Task:</strong>
+  <%= @task_progress.task %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @task_progress.user %>
+</p>
+
+<p>
+  <strong>Done:</strong>
+  <%= @task_progress.done %>
+</p>
+
+<%= link_to 'Edit', edit_task_progress_path(@task_progress) %> |
+<%= link_to 'Back', task_progresses_path %>

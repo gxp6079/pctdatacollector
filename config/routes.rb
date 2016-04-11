@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :task_progresses
+
   resources :permanence_times
 
   resources :tasks
