@@ -1,7 +1,12 @@
 class TaskActivitiesController < ApplicationController
   def take
     @task_activities = "Taking a task..."
-    @files = FileExample.all
+    in_progress_systems = current_user.in_progress_systems
+    if in_progress_systems.size <= 0
+      redirect_to task_activities_system_description_url
+    else
+      @files = FileExample.all
+    end
   end
 
   def system_description
