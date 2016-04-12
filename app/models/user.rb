@@ -4,6 +4,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
+  has_many :task_progresses, dependent: :destroy
+  has_many :tasks_in_progress, -> { TaskProgress.in_progress }, :through => :task_progresses, :source => :task
+  has_many :tasks_finished, -> { TaskProgress.finished }, :through => :task_progresses, :source => :task
+
   validate :role_name
 
   def self.available_roles
