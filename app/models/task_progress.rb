@@ -5,4 +5,5 @@ class TaskProgress < ActiveRecord::Base
   scope :finished, -> { where(done: true) }
   scope :in_progress, -> { where(done: false) }
 
+  # task_id and user_id should be unique?
 end

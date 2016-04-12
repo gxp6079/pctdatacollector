@@ -15,11 +15,13 @@ class TaskActivitiesController < ApplicationController
       @system_randomly_selected = in_progress_tasks.first.system_example
       @task_randomly_selected = in_progress_tasks.first
     else
-      unfinished_system_examples = current_user.unfinished_systems
+      unfinished_system_examples = current_user.in_progress_systems.size > 0 ? current_user.in_progress_systems : current_user.unfinished_systems
 
       if unfinished_system_examples.size > 0
         @system_randomly_selected = unfinished_system_examples.sample
         @task_randomly_selected = current_user.unfinished_tasks(@system_randomly_selected).sample
+        # Create a task progress
+        TaskProgress.create(user: current_user, task: @task_randomly_selected, done: false)
       else
         # user has finished all tasks
         @experiment_finished = true
