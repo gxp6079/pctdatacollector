@@ -17,7 +17,18 @@
       </a></li>
     <% end %>
     <li><a></a></li>
-    <li><%= link_to "FINISH ACTIVITY", root_path %></li>
+    <p class="buttons">
+      <%= link_to "Task escription",
+                  {:controller => "task_activities", :action => "system_description",
+                  :system => @system_randomly_selected }, {class: "button"}
+      %>
+    </p>
+    <p class="buttons">
+      <%= link_to "Finish task",
+                  {:controller => "task_activities", :action => "system_description",
+                  :system => @system_randomly_selected }, {class: "button"}
+      %>
+    </p>
   </ul>
 </div>
 
