@@ -6,6 +6,9 @@ class TaskActivitiesController < ApplicationController
 
   def system_description
     @experiment_finished = false
+    @system_randomly_selected = SystemExample.new
+    @task_randomly_selected = Task.new
+
     in_progress_tasks = current_user.in_progress_tasks
 
     if in_progress_tasks.size > 0
