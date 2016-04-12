@@ -1,4 +1,7 @@
 class TaskProgressesController < ApplicationController
+
+  load_and_authorize_resource
+
   before_action :set_task_progress, only: [:show, :edit, :update, :destroy]
 
   # GET /task_progresses
