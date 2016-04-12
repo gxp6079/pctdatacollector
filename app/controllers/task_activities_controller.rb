@@ -5,7 +5,7 @@ class TaskActivitiesController < ApplicationController
     if in_progress_systems.size <= 0
       redirect_to task_activities_system_description_url
     else
-      @files = FileExample.all
+      @files = FileExample.all_by_user_group(current_user).where(system_example: in_progress_systems.first)
     end
   end
 
