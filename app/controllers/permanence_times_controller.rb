@@ -1,4 +1,7 @@
 class PermanenceTimesController < ApplicationController
+
+  load_and_authorize_resource
+
   before_action :set_permanence_time, only: [:show, :edit, :update, :destroy]
 
   # GET /permanence_times
