@@ -1,4 +1,5 @@
 <div id="file_example_names" data-files="<%=h @files.collect{|f| f.name.split('.').first() } %>"></div>
+<div id="task_progress" data-taskprogress="<%= @task_progress %>"></div>
 <div id="console">
   <ul>
     <% @files.each do |file_example| %>
@@ -18,16 +19,13 @@
     <% end %>
     <li><a></a></li>
     <p class="buttons">
-      <%= link_to "Task escription",
+      <%= link_to "Task description",
                   {:controller => "task_activities", :action => "system_description",
                   :system => @system_randomly_selected }, {class: "button"}
       %>
     </p>
     <p class="buttons">
-      <%= link_to "Finish task",
-                  {:controller => "task_activities", :action => "system_description",
-                  :system => @system_randomly_selected }, {class: "button"}
-      %>
+      <%= link_to "Finish task", task_activities_finish_path(task_progress: @task_progress), class: "button", :method=> :put, :data => {:confirm => 'Are you sure?'} %>
     </p>
   </ul>
 </div>
@@ -43,6 +41,7 @@
 </div>
 
 <script>
+
 $(".field").hide();
 
 var datafields = { fields: []};

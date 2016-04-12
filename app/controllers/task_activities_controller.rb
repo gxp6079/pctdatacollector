@@ -7,12 +7,21 @@ class TaskActivitiesController < ApplicationController
     raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
 
     @task_activities = "Taking a task..."
+
     in_progress_systems = current_user.in_progress_systems
     if in_progress_systems.size <= 0
       redirect_to task_activities_system_description_url
     else
       @files = FileExample.all_by_user_group(current_user).where(system_example: in_progress_systems.first)
+      @task_progress = current_user.task_progresses.where(done: false).first
     end
+  end
+
+  def finish
+    raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
+    task_progress = TaskProgress.find(params[:task_progress])
+    task_progress.update_attribute(:done, true)
+    redirect_to task_activities_system_description_url
   end
 
   def system_description
