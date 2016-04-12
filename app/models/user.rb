@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
   end
 
   def in_progress_systems
-    unfinished_systems.select{ |system_example| (system_example.tasks & finished_tasks).size > 0 }
+    unfinished_systems.select{ |system_example| (system_example.tasks & (finished_tasks | in_progress_tasks)).size > 0 }
   end
 
   def has_finished_system? system_example
-    system_example.tasks.inject(true){ |result, task| result & has_finished_task?(task) }
+    system_example.tasks.inject(true){ |result, task| result && has_finished_task?(task) }
   end
 
   def unfinished_tasks system_example
