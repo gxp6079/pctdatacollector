@@ -2,15 +2,27 @@
   <div class="field">
     <h1><%= @static_pages.title() %></h1>
     <h2>Source Code Comprehension Experiment</h2>
-    <p>In this ecxperiment you will be ...</p>
+    <p>In this ecxperiment you will be asked to complete a series of tasks
+       related to a computer system. There are five systems and you will be asked to inspect
+       the source code for each to answer comprehension questions.
+    </p>
+    <p>
+      The questions or tasks are given to you in a separate paper. Your answer
+      should be written down in the answer sheet in the space given. Once you
+      finish each task you have to press the link 'FINISH TASK' and confirm the
+      finalization of the task.
+    </p>
 
-    <div class="input">
-      <p>Add you identification code and press complete task button:</p>
-      <input type="text" name="identicationcode" id="identificationcode">
-    </div>
+    <p>
+      In the bottom of the page you have a small menu to access to you identification
+      given for the experiment and to log-off.
+    </p>
 
     <p class="buttons">
-      <a href="#go" id="completetasks" class="button">Complete tasks</a>
+      <%= link_to "Start the experiment ",
+                  {:controller => "task_activities", :action => "system_description",
+                  :system => @system_randomly_selected }, {class: "button"}
+      %>
     </p>
   </div>
 </div>

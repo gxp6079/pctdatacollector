@@ -1,0 +1,22 @@
+<div id="information">
+  <div class="field">
+    <h1>System  </h1>
+    
+    <div class="input">
+      <h2><%= @system_randomly_selected.name %></h2>
+      <p><%= @system_randomly_selected.description %></p>
+    </div>
+
+    <div class="input">
+      <h2><%= @task_randomly_selected.name %></h2>
+      <p><%= @task_randomly_selected.description %></p>
+    </div>
+
+    <p class="buttons">
+      <%= link_to "Complete tasks for system 1", 
+                  {:controller => "task_activities", :action => "take"},
+                  {id: "completetasks", class: "button", method: :get}
+      %>
+    </p>
+  </div>
+</div>

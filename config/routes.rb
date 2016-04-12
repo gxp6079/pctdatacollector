@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :system_examples
 
   match 'task_activities/take', to: 'task_activities#take', via: [:get]
+  match 'task_activities/system_description', to: 'task_activities#system_description', via: [:get]
 
   devise_for :users
   devise_scope :user do
