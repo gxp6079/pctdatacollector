@@ -8,6 +8,7 @@ class Ability
       can :manage, :all
     elsif user.has_role? :subject
       can :home, StaticPage
+      can [:take, :system_description], TaskActivity
     end
     
   end

@@ -1,5 +1,11 @@
 class TaskActivitiesController < ApplicationController
+
+  load_and_authorize_resource
+
   def take
+    # authorize manually, couldn't make work with load_and_authorize_resource
+    raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
+
     @task_activities = "Taking a task..."
     in_progress_systems = current_user.in_progress_systems
     if in_progress_systems.size <= 0
@@ -10,6 +16,8 @@ class TaskActivitiesController < ApplicationController
   end
 
   def system_description
+    raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
+
     @experiment_finished = false
     @system_randomly_selected = SystemExample.new
     @task_randomly_selected = Task.new
