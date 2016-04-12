@@ -1,6 +1,10 @@
 <div id="information">
   <div class="field">
     <h1>System  </h1>
+
+    <% if @experiment_finished %>
+      <h1>Experiments is finished</h1>
+    <% end %>
     
     <div class="input">
       <h2><%= @system_randomly_selected.name %></h2>

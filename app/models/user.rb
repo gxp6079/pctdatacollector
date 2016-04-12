@@ -5,10 +5,26 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :task_progresses, dependent: :destroy
-  has_many :tasks_in_progress, -> { TaskProgress.in_progress }, :through => :task_progresses, :source => :task
-  has_many :tasks_finished, -> { TaskProgress.finished }, :through => :task_progresses, :source => :task
+  has_many :in_progress_tasks, -> { TaskProgress.in_progress }, :through => :task_progresses, :source => :task
+  has_many :finished_tasks, -> { TaskProgress.finished }, :through => :task_progresses, :source => :task
 
   validate :role_name
+
+  def unfinished_systems
+    SystemExample.all.select{ |system_example| !has_finished_system?(system_example) }
+  end
+
+  def has_finished_system? system_example
+    system_example.tasks.inject(true){ |result, task| result & has_finished_task?(task) }
+  end
+
+  def unfinished_tasks system_example
+    system_example.tasks.select{ |task| !has_finished_task?(task) }
+  end
+
+  def has_finished_task? task
+    finished_tasks.include? task
+  end
 
   def self.available_roles
     ['admin', 'subject']
