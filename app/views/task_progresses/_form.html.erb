@@ -1,30 +1,19 @@
 <%= form_for(@task_progress) do |f| %>
-  <% if @task_progress.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@task_progress.errors.count, "error") %> prohibited this task_progress from being saved:</h2>
+  <%= render 'shared/form_error_message_listing', object: f.object %>
 
-      <ul>
-      <% @task_progress.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-
-  <div class="field">
+  <p>
     <%= f.label :user_id %><br>
     <%= f.collection_select :user_id, User.all, :id, :email, {:include_blank => true} %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :task_id %><br>
     <%= f.collection_select :task_id, Task.all, :id, :name, {:include_blank => true} %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :done %><br>
     <%= f.check_box :done %>
-  </div>
-  <div class="actions">
+  </p>
+  <p>
     <%= f.submit %>
-  </div>
+  </p>
 <% end %>
