@@ -14,7 +14,9 @@ Rails.application.routes.draw do
   match 'task_activities/system_description', to: 'task_activities#system_description', via: [:get]
   match 'task_activities/finish', to: 'task_activities#finish', via: [:put]
 
-  devise_for :users
+  devise_for :users, path_names: {
+    sign_up: ''
+  }
   devise_scope :user do
     authenticated :user do
       root 'static_pages#home', as: :root
