@@ -11,6 +11,8 @@ gem 'figaro'
 gem 'devise', '3.3.0'
 # Authorization
 gem 'cancan', '1.6.10'
+# Paginate listings
+gem 'will_paginate', '~> 3.0'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.3'
 # Use Uglifier as compressor for JavaScript assets
