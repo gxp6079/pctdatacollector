@@ -1,9 +1,12 @@
-<div id="file_example_names" data-files="<%=h @files.collect{|f| f.name.split('.').first() } %>"></div>
+<div id="file_example_names" data-files="<%=h @files.collect{|f| f.name.split('.').first() + "-#{f.id}"} %>"></div>
 <div id="task_progress" data-taskprogress="<%= @task_progress %>"></div>
+<div id="taskid" data-taskid="<%= @task_progress.task.id %>"></div>
+<div id="systemid" data-systemid="<%= @task_progress.task.system_example.id %>"></div>
+<div id="userid" data-userid="<%= current_user.id %>"></div>
 <div id="console">
   <ul>
     <% @files.each do |file_example| %>
-      <li data-time="0" data-field=<%= "data-" + file_example.name.split('.').first() %>>
+      <li data-time="0" data-field=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}" %>>
         <%= file_example.name.split('.').first() %>: <span>0</span>s
       </li>
     <% end %>
@@ -13,7 +16,7 @@
 <div id="srcmenu">
   <ul>
     <% @files.each do |file_example| %>
-      <li><a class="sourcecode" href=<%= "#" + file_example.name.split('.').first() %> id=<%= file_example.name.split('.').first() %>>
+      <li><a class="sourcecode" href=<%= "#" + file_example.name.split('.').first() + "-#{file_example.id}" %> id=<%= file_example.name.split('.').first() + "-#{file_example.id}" %>>
         <%= file_example.name %>
       </a></li>
     <% end %>
@@ -32,20 +35,25 @@
 
 <div id="content">
   <% @files.each do |file_example| %>
-    <div id=<%= "data-" + file_example.name.split('.').first() %> class="field">
+    <div id=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}"%> class="field">
       <pre class="line-numbers"><code class="language-java">
 <%= file_example.code %>
       </code></pre>
     </div>
   <% end %>
 </div>
-
+<!--  -->
 <script>
 
 $(".field").hide();
 
+var taskid = $("#taskid").data("taskid");
+var systemid = $("#systemid").data("systemid");
+var userid = $("#userid").data("userid");
+
 var datafields = { fields: []};
 var jfiles=$("#file_example_names").data("files");
+
 $.each(jfiles, function(index, value) {
   datafields['fields'].push({selector: '#data-' + value, name: 'data-' + value});
 });
@@ -56,6 +64,10 @@ $.screentime({
   callback: function(data) {
 
     $.each(data, function(key, val) {
+
+      // Post permanence time
+      $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: key.replace(/^\w+-\w+-/g, ''), seconds: 1 } } )
+
       var $elem = $('#console li[data-field="' + key + '"]');
       var current = parseInt($elem.data('time'), 10);
 

@@ -9,6 +9,7 @@ class Ability
     elsif user.has_role? :subject
       can :home, StaticPage
       can :update, TaskProgress
+      can :create, PermanenceTime
       can [:take, :system_description, :finish], TaskActivity
     end
     
