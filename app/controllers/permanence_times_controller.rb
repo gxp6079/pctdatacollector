@@ -7,7 +7,7 @@ class PermanenceTimesController < ApplicationController
   # GET /permanence_times
   # GET /permanence_times.json
   def index
-    @permanence_times = PermanenceTime.all
+    @permanence_times = PermanenceTime.accessible_by(current_ability).paginate(:page => params[:page], :per_page => 20).order('created_at DESC')
   end
 
   # GET /permanence_times/1

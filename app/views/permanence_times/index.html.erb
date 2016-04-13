@@ -1,7 +1,7 @@
 <div id="information">
 <div class="field">
 
-<h1>Listing permanence_times</h1>
+<h1>Listing permanence times</h1>
 
 <table>
   <thead>
@@ -28,6 +28,19 @@
         <td><%= link_to 'Destroy', permanence_time, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
+  </tbody>
+</table>
+
+<table>
+  <tbody>
+    <tr>
+      <th></th>
+      <th></th>
+    </tr>
+    <tr>
+      <td><%= page_entries_info @api_calls %></td>
+      <td align="right"><%= will_paginate @permanence_times %></td>
+    </tr>
   </tbody>
 </table>
 
