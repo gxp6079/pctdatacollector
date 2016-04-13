@@ -1,23 +1,26 @@
-<p id="notice"><%= notice %></p>
+<div id="information">
+<div class="field">
+
+<h1>Permanence time</h1>
 
 <p>
   <strong>Task:</strong>
-  <%= @permanence_time.task %>
+  <%= @permanence_time.task.name %>
 </p>
 
 <p>
   <strong>System example:</strong>
-  <%= @permanence_time.system_example %>
+  <%= @permanence_time.system_example.name %>
 </p>
 
 <p>
   <strong>File example:</strong>
-  <%= @permanence_time.file_example %>
+  <%= @permanence_time.file_example.name %>
 </p>
 
 <p>
   <strong>User:</strong>
-  <%= @permanence_time.user %>
+  <%= @permanence_time.user.email %>
 </p>
 
 <p>
@@ -27,3 +30,6 @@
 
 <%= link_to 'Edit', edit_permanence_time_path(@permanence_time) %> |
 <%= link_to 'Back', permanence_times_path %>
+
+</div>
+</div>
