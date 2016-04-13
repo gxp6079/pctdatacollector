@@ -15,10 +15,10 @@
   <tbody>
     <% @permanence_times.each do |permanence_time| %>
       <tr>
-        <td><%= permanence_time.task %></td>
-        <td><%= permanence_time.system_example %></td>
-        <td><%= permanence_time.file_example %></td>
-        <td><%= permanence_time.user %></td>
+        <td><%= permanence_time.task.name %></td>
+        <td><%= permanence_time.system_example.name %></td>
+        <td><%= permanence_time.file_example.name %></td>
+        <td><%= permanence_time.user.email %></td>
         <td><%= permanence_time.seconds %></td>
         <td><%= link_to 'Show', permanence_time %></td>
         <td><%= link_to 'Edit', edit_permanence_time_path(permanence_time) %></td>
