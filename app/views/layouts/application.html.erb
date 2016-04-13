@@ -24,6 +24,8 @@
       <% if can? :manage, :SystemExample %> <%= link_to "Systems", system_examples_path %> | <% end %>
       <% if can? :manage, :FileExample %> <%= link_to "Files", file_examples_path %> | <% end %>
       <% if can? :manage, :Task %> <%= link_to "Tasks", tasks_path %> | <% end %>
+      <% if can? :manage, :TaskProgress %> <%= link_to "Progress", task_progresses_path %> | <% end %>
+      <% if can? :manage, :PermanenceTime %> <%= link_to "Times", permanence_times_path %> | <% end %>
       <%= link_to "Edit account", edit_user_registration_path %> |
       <%= link_to 'Take tasks', task_activities_take_path, method: :get %>
       <%= current_user.email %>(<%= link_to "Sign out", destroy_user_session_path, :method=>'delete' %>)
