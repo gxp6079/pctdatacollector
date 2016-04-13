@@ -1,6 +1,7 @@
-<% provide(:title, 'Usuario ' + @user.email) %>
+<div id="information">
+<div class="field">
 
-<h2>Usuario</h2>
+<h2>User</h2>
 
 <p>
   <b>Email:</b>
@@ -27,4 +28,7 @@
   <%= @user.updated_at %>
 </p>
 
-<%= link_to 'Editar', edit_user_path(@user) %> | <%= link_to 'Listado de usuarios', users_path %>
+<%= link_to 'Edit', edit_user_path(@user) %> | <%= link_to 'Back', users_path %>
+
+</div>
+</div>
