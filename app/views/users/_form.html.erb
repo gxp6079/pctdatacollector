@@ -1,27 +1,27 @@
 <%= form_for(@user) do |f| %>
   <%= render 'shared/form_error_message_listing', object: f.object %>
   
-  <div class="field">
+  <p>
     <%= f.label :email %>
     <%= f.text_field :email %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :password %>
     <%= f.password_field :password %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :password_confirmation %>
     <%= f.password_field :password_confirmation %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :role %>
     <%= f.select :role, options_for_select(User.available_roles(), selected: f.object.role) %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :group %>
     <%= f.select :group, options_for_select(User.available_groups(), selected: f.object.group) %>
-  </div>
-  <div class="actions">
+  </p>
+  <p>
     <%= f.submit %>
-  </div>
+  </p>
 <% end %>
