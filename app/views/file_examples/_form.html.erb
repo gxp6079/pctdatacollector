@@ -1,29 +1,19 @@
 <%= form_for(@file_example) do |f| %>
-  <% if @file_example.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@file_example.errors.count, "error") %> prohibited this file_example from being saved:</h2>
+  <%= render 'shared/form_error_message_listing', object: f.object %>
 
-      <ul>
-      <% @file_example.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div class="field">
+  <p>
     <%= f.label :system_example_id %><br>
     <%= f.collection_select :system_example_id, SystemExample.all, :id, :name, {:include_blank => true} %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :name %><br>
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
+  </p>
+  <p>
     <%= f.label :code %><br>
     <%= f.text_area :code %>
-  </div>
-  <div class="actions">
+  </p>
+  <p>
     <%= f.submit %>
-  </div>
+  </p>
 <% end %>
