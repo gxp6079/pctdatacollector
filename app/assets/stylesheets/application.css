@@ -296,3 +296,17 @@ a:hover {
   border-radius: 5px;
   position: relative;
   overflow: hidden; }
+
+/* Tables */
+
+table {
+  font-size: 12px;
+  border-collapse: collapse;
+  width: 100%; }
+
+tr {
+  border-bottom: 1px solid;
+  border-color: #00b065; }
+
+th {
+  text-align: left; }
