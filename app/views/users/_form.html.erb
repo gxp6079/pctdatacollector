@@ -2,23 +2,23 @@
   <%= render 'shared/form_error_message_listing', object: f.object %>
   
   <p>
-    <%= f.label :email %>
+    <%= f.label :email %><br>
     <%= f.text_field :email %>
   </p>
   <p>
-    <%= f.label :password %>
+    <%= f.label :password %><br>
     <%= f.password_field :password %>
   </p>
   <p>
-    <%= f.label :password_confirmation %>
+    <%= f.label :password_confirmation %><br>
     <%= f.password_field :password_confirmation %>
   </p>
   <p>
-    <%= f.label :role %>
+    <%= f.label :role %><br>
     <%= f.select :role, options_for_select(User.available_roles(), selected: f.object.role) %>
   </p>
   <p>
-    <%= f.label :group %>
+    <%= f.label :group %><br>
     <%= f.select :group, options_for_select(User.available_groups(), selected: f.object.group) %>
   </p>
   <p>
