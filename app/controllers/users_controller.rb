@@ -33,8 +33,13 @@ class UsersController < ApplicationController
 
   def update
     if params[:user][:password].blank? and params[:user][:password_confirmation].blank?
-     params[:user].delete(:password)
+      params[:user].delete(:password)
       params[:user].delete(:password_confirmation)
+    end
+
+    # Delete all TaskProgress for the user that has been not time trackable
+    if @user.is_time_trackable == false && params[:user][:is_time_trackable] == "1"
+      TaskProgress.where(user: @user).destroy_all
     end
 
     respond_to do |format|

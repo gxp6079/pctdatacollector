@@ -33,3 +33,11 @@
     <%= f.submit %>
   </p>
 <% end %>
+
+<script>
+$('#user_is_time_trackable').on('change', function(){
+  if ($(this).is(':checked')) {
+    alert("Making a user time trackable will delete any of her/his task progress entries. As there was no trackable information, these progresses are supposed to be meaningless.");
+  }
+});
+</script>
