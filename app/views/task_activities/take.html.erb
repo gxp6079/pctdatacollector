@@ -3,6 +3,7 @@
 <div id="taskid" data-taskid="<%= @task_progress.task.id %>"></div>
 <div id="systemid" data-systemid="<%= @task_progress.task.system_example.id %>"></div>
 <div id="userid" data-userid="<%= current_user.id %>"></div>
+<div id="timetrackable" data-timetrackable="<%= current_user.is_time_trackable %>"></div>
 <div id="console">
   <ul>
     <% @files.each do |file_example| %>
@@ -50,6 +51,7 @@ $(".field").hide();
 var taskid = $("#taskid").data("taskid");
 var systemid = $("#systemid").data("systemid");
 var userid = $("#userid").data("userid");
+var timetrackable = $("#timetrackable").data("timetrackable");
 
 var datafields = { fields: []};
 var jfiles=$("#file_example_names").data("files");
@@ -65,8 +67,10 @@ $.screentime({
 
     $.each(data, function(key, val) {
 
+      if(timetrackable) {
       // Post permanence time
-      $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: key.replace(/^\w+-\w+-/g, ''), seconds: 1 } } )
+        $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: key.replace(/^\w+-\w+-/g, ''), seconds: 1 } } )
+      }
 
       var $elem = $('#console li[data-field="' + key + '"]');
       var current = parseInt($elem.data('time'), 10);
