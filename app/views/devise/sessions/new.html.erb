@@ -3,16 +3,27 @@
 
     <h1>Program Comprehension</h1>
 
-    <h2>Log in</h2>
-
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :id => "loginform" }) do |f| %>
-      
-      <div class="input">
-        <%= f.email_field :email, autofocus: true, :placeholder => "email code given" %><br>
-        <%= f.password_field :password, autocomplete: "off", :placeholder => "password given" %>
-      </div>
+    <h2>Registration:</h2>
+    <p class="innertext">
+      Please, follow the link to the registration form to complete valuable information
+      regarding the source code comprehension experiment. After registering we will contact
+      to inform you about the next stps.
       <p class="buttons">
-        <%= link_to 'submit', "", :onclick => "$('#loginform').submit()", :class => "button" %>
+      <%= link_to 'Registration Form', "https://docs.google.com/forms/d/1n98SbRqVUGwn0iDPvll1e2rUQFIcmAwLsV3v0DTJ5j4/viewform", :class => "button" %>
+      </p>
+    </p>
+
+    <h2>Experiment</h2>
+    <p class="innertext">
+      Sign in to start with the experimetal tasks about source code comprehension.
+    </p>
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :id => "loginform" }) do |f| %>
+      <p class="input">
+        <%= f.email_field :email, autofocus: true, :placeholder => "email given" %><br>
+        <%= f.password_field :password, autocomplete: "off", :placeholder => "password given" %>
+      </p>
+      <p class="buttons">
+        <%= link_to 'sign in', "", :onclick => "$('#loginform').submit()", :class => "button" %>
       </p>
     <% end %>
 
