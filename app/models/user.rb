@@ -42,6 +42,14 @@ class User < ActiveRecord::Base
     role_name_symbol == role.underscore.to_sym
   end
 
+  def active_for_authentication?
+    super && self.is_active?
+  end
+
+  def inactive_message
+    "Sorry, this account is not active."
+  end
+
   private
     def role_name
       if not User.available_roles().include?(role)
