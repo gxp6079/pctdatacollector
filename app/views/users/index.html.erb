@@ -5,6 +5,7 @@
 
 <table>
   <tr>
+    <th>ID</th>
     <th>Email</th>
     <th>Role</th>
     <th>Group</th>
@@ -16,6 +17,7 @@
 
   <% @users.each do |user| %>
     <tr>
+      <td><b><%= user.id %></b></td>
       <td><%= user.email %></td>
       <td><%= user.role %></td>
       <td><%= user.group %></td>
