@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :task_progresses, dependent: :destroy
+  has_many :permanence_times, dependent: :destroy
   has_many :in_progress_tasks, -> { TaskProgress.in_progress }, :through => :task_progresses, :source => :task
   has_many :finished_tasks, -> { TaskProgress.finished }, :through => :task_progresses, :source => :task
 
