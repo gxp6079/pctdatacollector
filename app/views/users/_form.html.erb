@@ -22,6 +22,10 @@
     <%= f.select :group, options_for_select(User.available_groups(), selected: f.object.group) %>
   </p>
   <p>
+    <%= f.label :is_active %><br>
+    <%= f.check_box :is_active %>
+  </p>
+  <p>
     <%= f.submit %>
   </p>
 <% end %>
