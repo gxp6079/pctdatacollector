@@ -5,4 +5,8 @@ class FileExample < ActiveRecord::Base
   validates_presence_of :name
 
   scope :all_by_user_group, -> (user) { where('name LIKE ?', '%' + user.group + '%') }
+
+  def self.known_file_extensions
+    ['.k', '.java']
+  end
 end

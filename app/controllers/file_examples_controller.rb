@@ -65,10 +65,36 @@ class FileExamplesController < ApplicationController
 
   def read_file
     uploaded_file = params[:file]
+
+    if uploaded_file.nil?
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Invalid file.' }
+        format.json { head :no_content }
+      end
+      return
+    end
+
     file_content = uploaded_file.read
 
     system_example_id = params[:file_example][:system_example_id]
     file_extension = File.extname(uploaded_file.original_filename)
+
+    if  SystemExample.where(id: system_example_id).size <= 0
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Invalid system example."}
+        format.json { head :no_content }
+      end
+      return
+    end
+
+    if !FileExample.known_file_extensions.include? file_extension
+      respond_to do |format|
+        format.html { redirect_to :back, notice: "Invalid file extension: #{file_extension}, only " + FileExample.known_file_extensions.join(", ") + "."}
+        format.json { head :no_content }
+      end
+      return
+    end
+
     file_examples = []
 
     parse_file_example(file_content).each do |filename, code|
