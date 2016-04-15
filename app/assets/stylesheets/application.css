@@ -322,3 +322,12 @@ textarea {
   width: 100%;
   height: 100px;
 }
+
+.innerform {
+  padding: 20px;
+  margin: 0 0 20px;
+  background-color: #00b065;
+  border-radius: 5px;
+  position: relative;
+  overflow: hidden; }
+}
