@@ -10,4 +10,8 @@ class FileExample < ActiveRecord::Base
   def self.known_file_extensions
     ['.k', '.java']
   end
+
+  def file_extension
+    File.extname(name)
+  end
 end
