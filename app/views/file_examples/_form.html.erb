@@ -17,3 +17,12 @@
     <%= f.submit %>
   </p>
 <% end %>
+
+<%= form_tag file_examples_read_file_path, :multipart => true do %>
+  <p>
+    <%= label_tag :system_example_id %>
+    <%= collection_select(:file_example, :system_example_id, SystemExample.all, :id, :name, prompt: true) %>
+    <label for="file">Upload text File</label> <%= file_field_tag "file" %>
+    <%= submit_tag %>
+  </p>
+<% end %>

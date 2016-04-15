@@ -63,7 +63,76 @@ class FileExamplesController < ApplicationController
     end
   end
 
+  def read_file
+    uploaded_file = params[:file]
+    file_content = uploaded_file.read
+
+    system_example_id = params[:file_example][:system_example_id]
+    file_extension = File.extname(uploaded_file.original_filename)
+    file_examples = []
+
+    parse_file_example(file_content).each do |filename, code|
+      filename = filename.underscore if(file_extension == '.k')
+      file_examples.push FileExample.new(system_example_id: system_example_id, name: filename + file_extension, code: code.strip)
+    end
+
+    files_are_valid = true
+    file_examples.each do |file_example|
+      files_are_valid &= file_example.valid?
+      if file_example.invalid?
+        @file_example = file_example
+        break
+      end
+    end
+
+    if files_are_valid
+      file_examples.each do |file_example|
+        file_example.save
+      end
+    end
+
+    respond_to do |format|
+      if files_are_valid
+        format.html { redirect_to file_examples_url, notice: 'Files examples were successfully created from uploaded file.' }
+        format.json { head :no_content }
+      else
+        format.html { render :new }
+        format.json { render json: @file_example.errors, status: :unprocessable_entity }
+      end
+    end
+  end
+
   private
+    def parse_file_example file
+      cbraces = 0
+      construct_definition = "" # could be a class, interface, context, enacment block
+      file_examples = {}
+      file_name = ""
+
+      file.each_line do |line|
+        striped_line = line.strip()
+        next if(striped_line =~ /(import|\*|\/\*)/) == 0 || line == "\n"
+
+        if cbraces == 0
+          if striped_line == "{" then
+            file_name = "main"
+          else
+            file_name = striped_line.scan(/(class|interface|context)\s+(\w+).*{/).last[1]
+          end
+        end
+
+        cbraces += line.count("{")
+        construct_definition += line
+        cbraces -= line.count("}")
+        if cbraces == 0
+          file_examples[file_name] = construct_definition
+          construct_definition = ""
+        end
+      end
+
+      file_examples
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_file_example
       @file_example = FileExample.find(params[:id])

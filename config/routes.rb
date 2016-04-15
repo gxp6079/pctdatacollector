@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :tasks
 
   resources :file_examples
+  match 'file_examples/read_file', to: 'file_examples#read_file', via: [:post]
 
   resources :system_examples
 
