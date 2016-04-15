@@ -20,7 +20,7 @@
       <tr>
         <td><%= permanence_time.task.name %></td>
         <td><%= permanence_time.system_example.name %></td>
-        <td><%= permanence_time.file_example.name %></td>
+        <td><%= permanence_time.file_example.name unless permanence_time.file_example.nil? %></td>
         <td><%= permanence_time.user.email %></td>
         <td><%= permanence_time.seconds %></td>
         <td><%= link_to 'Show', permanence_time %></td>

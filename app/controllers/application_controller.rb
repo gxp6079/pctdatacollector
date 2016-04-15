@@ -10,6 +10,10 @@ class ApplicationController < ActionController::Base
     params[resource] &&= send(method) if respond_to?(method, true)
   end
 
+  rescue_from ActiveRecord::DeleteRestrictionError do |exception|
+    redirect_to(:back, :alert => exception.message)
+  end
+
   rescue_from CanCan::AccessDenied do |exception|
     respond_to do |format|
       format.html { redirect_to root_url, :alert => exception.message }
