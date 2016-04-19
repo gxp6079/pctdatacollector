@@ -9,12 +9,13 @@
       </p>
     <% else %>
       <h1><%= @system_randomly_selected.name %></h1>
+      <h2><%= "#{@number_of_finished_systems}/#{@number_of_systems}" %></h2>
       <div class="input">
         <p><%= @system_randomly_selected.description %></p>
       </div>
 
       <div class="input">
-        <h2><%= @task_randomly_selected.name %></h2>
+        <h2><%= @task_randomly_selected.name %> <%= "(#{@number_of_finished_tasks}/#{@number_of_tasks})" %></h2>
         <p><%= @task_randomly_selected.description %></p>
       </div>
 

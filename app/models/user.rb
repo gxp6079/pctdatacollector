@@ -11,8 +11,20 @@ class User < ActiveRecord::Base
 
   validate :role_name
 
+  def all_systems
+    # we considered a system only if it has tasks and file examples for the group of the current user in the database
+    SystemExample.joins(:tasks)
+                 .joins(:file_examples)
+                 .where('file_examples.name LIKE ?', '%' + group + '%')
+                 .distinct
+  end
+
   def unfinished_systems
-    SystemExample.all.select{ |system_example| !has_finished_system?(system_example) }
+    all_systems.select{ |system_example| !has_finished_system?(system_example) }
+  end
+
+  def finished_systems
+    all_systems.select{ |system_example| has_finished_system?(system_example) }
   end
 
   def in_progress_systems

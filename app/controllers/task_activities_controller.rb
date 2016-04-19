@@ -3,15 +3,15 @@ class TaskActivitiesController < ApplicationController
   load_and_authorize_resource
 
   def take
-    # authorize manually, couldn't make work with load_and_authorize_resource
+    # authorize manually, couldn't make it work with load_and_authorize_resource
     raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
 
     @task_activities = "Taking a task..."
 
     in_progress_systems = current_user.in_progress_systems
-    if in_progress_systems.size <= 0
+    if in_progress_systems.size <= 0 # incase someone goes directly to take_path the task without going first to system_description_path
       redirect_to task_activities_system_description_url
-    else
+    else # a system and a task have been assigned
       @files = FileExample.all_by_user_group(current_user).where(system_example: in_progress_systems.first)
       @task_progress = current_user.task_progresses.where(done: false).first
     end
@@ -26,10 +26,9 @@ class TaskActivitiesController < ApplicationController
 
   def system_description
     raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
-
     @experiment_finished = false
-    @system_randomly_selected = SystemExample.new
-    @task_randomly_selected = Task.new
+    # @system_randomly_selected = SystemExample.new
+    # @task_randomly_selected = Task.new
 
     in_progress_tasks = current_user.in_progress_tasks
 
@@ -49,5 +48,13 @@ class TaskActivitiesController < ApplicationController
         @experiment_finished = true
       end
     end
+
+    if @experiment_finished == false
+      @number_of_systems = current_user.all_systems.size
+      @number_of_finished_systems = current_user.finished_systems.size + 1
+      @number_of_tasks = Task.where(system_example: @task_randomly_selected.system_example).size
+      @number_of_finished_tasks = current_user.finished_tasks.where(system_example: @task_randomly_selected.system_example).size + 1
+    end
+
   end
 end
