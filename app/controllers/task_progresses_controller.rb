@@ -7,7 +7,10 @@ class TaskProgressesController < ApplicationController
   # GET /task_progresses
   # GET /task_progresses.json
   def index
-    @task_progresses = TaskProgress.all
+    @task_progresses = TaskProgress.joins(:system_example)
+                                   .select("system_examples.id, task_progresses.id, task_progresses.user_id, " +
+                                           "task_progresses.task_id, task_progresses.done")
+                                   .distinct.order("task_progresses.user_id, system_examples.id, task_progresses.id")
   end
 
   # GET /task_progresses/1
