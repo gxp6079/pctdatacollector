@@ -4,6 +4,8 @@
 <div id="systemid" data-systemid="<%= @task_progress.task.system_example.id %>"></div>
 <div id="userid" data-userid="<%= current_user.id %>"></div>
 <div id="timetrackable" data-timetrackable="<%= current_user.is_time_trackable %>"></div>
+
+<% if current_user.has_role? :admin %>
 <div id="console">
   <ul>
     <% @files.each do |file_example| %>
@@ -13,6 +15,7 @@
     <% end %>
   </ul>
 </div>
+<% end %>
 
 <div id="srcmenu">
   <ul>
