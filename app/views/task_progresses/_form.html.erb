@@ -10,6 +10,10 @@
     <%= f.collection_select :task_id, Task.all, :id, :name, {:include_blank => true} %>
   </p>
   <p>
+    <strong>System:</strong>
+    <%= @task_progress.system_example.name %>
+  </p>
+  <p>
     <%= f.label :done %><br>
     <%= f.check_box :done %>
   </p>
