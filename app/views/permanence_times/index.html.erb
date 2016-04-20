@@ -24,7 +24,6 @@
         <td><%= permanence_time.user.email %></td>
         <td><%= permanence_time.seconds %></td>
         <td><%= link_to 'Show', permanence_time %></td>
-        <td><%= link_to 'Edit', edit_permanence_time_path(permanence_time) %></td>
         <td><%= link_to 'Destroy', permanence_time, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
@@ -45,8 +44,6 @@
 </table>
 
 <br>
-
-<%= link_to 'New Permanence time', new_permanence_time_path %>
 
 </div>
 </div>
