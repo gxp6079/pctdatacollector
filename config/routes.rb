@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  resources :task_progresses
+  resources :task_progresses, :except => [:new]
 
   resources :permanence_times
 
