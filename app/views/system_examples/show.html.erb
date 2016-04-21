@@ -7,10 +7,13 @@
   <strong>Name:</strong>
   <%= @system_example.name %>
 </p>
-
 <p>
   <strong>Description:</strong>
   <%= @system_example.description %>
+</p>
+<p>
+  <strong>Name:</strong>
+  <%= @system_example.is_for_training %>
 </p>
 
 <%= link_to 'Edit', edit_system_example_path(@system_example) %> |

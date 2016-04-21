@@ -71,6 +71,6 @@ class SystemExamplesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def system_example_params
-      params.require(:system_example).permit(:name, :description)
+      params.require(:system_example).permit(:name, :description, :is_for_training)
     end
 end
