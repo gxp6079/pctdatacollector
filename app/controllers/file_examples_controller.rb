@@ -137,6 +137,7 @@ class FileExamplesController < ApplicationController
 
       file.each_line do |line|
         striped_line = line.strip()
+        construct_definition += line if line == "\n"
         next if(striped_line =~ /(import|\*|\/\*)/) == 0 || line == "\n"
 
         if cbraces == 0
