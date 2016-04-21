@@ -48,6 +48,9 @@ class TaskActivitiesController < ApplicationController
       else
         # user has finished all tasks
         @experiment_finished = true
+        if current_user.is_in_training
+          current_user.task_progresses.joins(:system_example).where('system_examples.is_for_training = TRUE').destroy_all
+        end
       end
     end
 
