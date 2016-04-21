@@ -3,10 +3,15 @@
 
     <% if @experiment_finished %>
       <h1>Experiment is finished</h1>
+      <div class="input">
       <h2>Thank you!</h2>
       <p>Keep in contact with the project if you want to know about the results.
          This could be beneficial in your carrer as programmer. Don't forget to log-out. Thank you for your time.
       </p>
+      <% if current_user.is_in_training %>
+        <p>As you are in training mode, you can start all over again.</p>
+      <% end %>
+      </div>
     <% else %>
       <p class="field-label">
         systems: <%= "#{@number_of_finished_systems}/#{@number_of_systems}" %> &nbsp
