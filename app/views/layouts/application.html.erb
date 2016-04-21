@@ -20,6 +20,9 @@
 <% if user_signed_in? %>
   <div id="bottommenu">
     <div class="field">
+      <% if current_user.is_in_training %>
+        <p class="field-label">training mode</p>
+      <% end %>
       <% if can? :manage, :User %> <%= link_to "Users", users_path %> | <% end %>
       <% if can? :manage, :SystemExample %> <%= link_to "Systems", system_examples_path %> | <% end %>
       <% if can? :manage, :FileExample %> <%= link_to "Files", file_examples_path %> | <% end %>
