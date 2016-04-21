@@ -13,7 +13,8 @@ class TaskActivitiesController < ApplicationController
       redirect_to task_activities_system_description_url
     else # a system and a task have been assigned
       @files = FileExample.all_by_user_group(current_user).where(system_example: in_progress_systems.first)
-      @task_progress = current_user.task_progresses.where(done: false).first
+      @task_progress = current_user.task_progresses.where(done: false)
+                                   .select{|pt| pt.system_example.is_for_training == current_user.is_in_training }.first
     end
   end
 
@@ -30,7 +31,8 @@ class TaskActivitiesController < ApplicationController
     # @system_randomly_selected = SystemExample.new
     # @task_randomly_selected = Task.new
 
-    in_progress_tasks = current_user.in_progress_tasks
+    in_progress_tasks = current_user.in_progress_tasks.select{|pt| pt.system_example.is_for_training == current_user.is_in_training }
+
 
     if in_progress_tasks.size > 0
       @system_randomly_selected = in_progress_tasks.first.system_example

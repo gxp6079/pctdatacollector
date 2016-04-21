@@ -12,9 +12,12 @@ class User < ActiveRecord::Base
   validate :role_name
 
   def all_systems
-    # we considered a system only if it has tasks and file examples for the group of the current user in the database
+    # we considered a system only if in the database the system has tasks and file examples
+    # for the group of the current user, and the system and user are for training purposes
+
     SystemExample.joins(:tasks)
                  .joins(:file_examples)
+                 .where('system_examples.is_for_training = ?', is_in_training)
                  .where('file_examples.name LIKE ?', '%' + group + '%')
                  .distinct
   end
