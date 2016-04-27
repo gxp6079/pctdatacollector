@@ -97,9 +97,20 @@ class FileExamplesController < ApplicationController
 
     file_examples = []
 
+    message = ""
+
     parse_file_example(file_content).each do |filename, code|
       filename = filename.underscore if(file_extension == '.k')
-      file_examples.push FileExample.new(system_example_id: system_example_id, name: filename + file_extension, code: code.strip)
+
+      if FileExample.find_by(name: filename + file_extension)
+        message += filename + file_extension + " was edited  -  "
+      else
+        message += filename + file_extension + " created  -  "
+      end
+
+      fe = FileExample.find_or_create_by(system_example_id: system_example_id, name: filename + file_extension)
+      fe.code = code.strip # overrides the old code
+      file_examples.push fe
     end
 
     files_are_valid = true
@@ -119,7 +130,7 @@ class FileExamplesController < ApplicationController
 
     respond_to do |format|
       if files_are_valid
-        format.html { redirect_to file_examples_url, notice: 'Files examples were successfully created from uploaded file.' }
+        format.html { redirect_to file_examples_url, notice: "Files examples were successfully created/edited from uploaded file:     " + message }
         format.json { head :no_content }
       else
         format.html { render :new }
