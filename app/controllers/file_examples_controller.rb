@@ -102,8 +102,8 @@ class FileExamplesController < ApplicationController
     parse_file_example(file_content).each do |filename, code|
       filename = filename.underscore if(file_extension == '.k')
 
-      if FileExample.find_by(name: filename + file_extension)
-        message += filename + file_extension + " was edited  -  "
+      if FileExample.find_by(system_example_id: system_example_id, name: filename + file_extension)
+        message += filename + file_extension + " edited  -  "
       else
         message += filename + file_extension + " created  -  "
       end
