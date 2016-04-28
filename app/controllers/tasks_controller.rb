@@ -6,7 +6,7 @@ class TasksController < ApplicationController
   # GET /tasks
   # GET /tasks.json
   def index
-    @tasks = Task.all.order('system_example_id, name')
+    @tasks = Task.joins(:system_example).order("system_examples.name, tasks.name")
   end
 
   # GET /tasks/1
