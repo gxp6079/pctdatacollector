@@ -3,7 +3,7 @@
 
   <p>
     <%= f.label :system_example_id %><br>
-    <%= f.collection_select :system_example_id, SystemExample.all, :id, :name, {:include_blank => true} %>
+    <%= f.collection_select :system_example_id, SystemExample.all.order("name"), :id, :name, {:include_blank => true} %>
   </p>
   <p>
     <%= f.label :name %><br>
@@ -22,7 +22,7 @@
 <%= form_tag file_examples_read_file_path, :multipart => true do %>
   <p>Upload a source code file to be parsed into multiple file examples. It will create a file example for each class, interface, context, or enactment bloc. If it is a trygve code, a enactment block will be created as 'main.k'.</p>
   <%= label_tag :system_example_id %>
-  <%= collection_select(:file_example, :system_example_id, SystemExample.all, :id, :name, prompt: true) %>
+  <%= collection_select(:file_example, :system_example_id, SystemExample.all.order("name"), :id, :name, prompt: true) %>
   <label for="file">Upload text File</label> <%= file_field_tag "file" %>
   <%= submit_tag %>
 <% end %>
