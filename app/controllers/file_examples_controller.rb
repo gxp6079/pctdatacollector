@@ -6,7 +6,8 @@ class FileExamplesController < ApplicationController
   # GET /file_examples
   # GET /file_examples.json
   def index
-    @file_examples = FileExample.order("system_example_id, substring(name, '.+\.(.+)$'), name")
+    @file_examples = FileExample.joins(:system_example)
+                                .order("system_examples.name, substring(file_examples.name, '.+\.(.+)$'), file_examples.name")
   end
 
   # GET /file_examples/1

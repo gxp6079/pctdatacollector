@@ -6,7 +6,7 @@ class SystemExamplesController < ApplicationController
   # GET /system_examples
   # GET /system_examples.json
   def index
-    @system_examples = SystemExample.all
+    @system_examples = SystemExample.all.order("name")
   end
 
   # GET /system_examples/1
