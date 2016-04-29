@@ -21,6 +21,10 @@
     </p>
 
     <p class="buttons">
+      <%= link_to 'Download tasks answer sheet', download_tasks_url %>
+    </p>
+
+    <p class="buttons">
       <%= link_to "Start the experiment ",
                   {:controller => "task_activities", :action => "system_description",
                   :system => @system_randomly_selected }, {class: "button"}
