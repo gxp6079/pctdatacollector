@@ -23,7 +23,7 @@
         <p class="buttons">
           <%= link_to "Start again",
                       {:controller => "task_activities", :action => "retake"},
-                      {id: "completetasks", class: "button", method: :get}
+                      {id: "completetasks", class: "button", method: :delete}
           %>
         </p>
       <% end %>
