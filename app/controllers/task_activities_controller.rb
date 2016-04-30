@@ -62,4 +62,37 @@ class TaskActivitiesController < ApplicationController
     end
 
   end
+  def upload_tasks
+    uploaded_file = params[:file]
+    file_extension = File.extname(uploaded_file.original_filename)
+
+    if uploaded_file.nil? || ![".doc", ".docx", ".odt"].include?(file_extension)
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'Invalid file.' }
+        format.json { head :no_content }
+      end
+      return
+    end
+
+    training_mode = ""
+    training_mode = ".training" if(current_user.is_in_training?)
+
+    begin
+      filename_in_server = "#{Time.now.strftime("%Y%m%d-%H%M%S")}.userid.#{current_user.id}#{training_mode}#{file_extension}"
+      File.open(Rails.root.join('private', 'tasks_upload', filename_in_server), 'wb') do |file|
+        file.write(uploaded_file.read)
+      end
+    rescue Errno::ENOENT => e
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'The submission action is not available.' }
+        format.json { head :no_content }
+      end
+      return
+    end
+
+    respond_to do |format|
+      format.html { redirect_to :back, notice: 'File has been submitted. Thanks for your participation.' }
+      format.json { head :no_content }
+    end
+  end
 end

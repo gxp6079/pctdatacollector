@@ -6,11 +6,18 @@
       <div class="input">
       <h2>Thank you!</h2>
       <p>Keep in contact with the project if you want to know about the results.
-         This could be beneficial in your carrer as programmer. Don't forget to log-out. Thank you for your time.
+         This could be beneficial in your carrer as a programmer. Don't forget to submit your answers and log-out. Thank you.
       </p>
       <% if current_user.is_in_training %>
-        <p>As you are in training mode, you can start all over again.</p>
+        <p>As you are in training mode, submiting your answers is not mandatory. In training mode you can start the experiment all over again by going to our home url or by submitting the answers.</p>
       <% end %>
+
+      <div class="innerform">
+        <%= form_tag task_activities_upload_tasks_path, :multipart => true do %>
+          <label for="file">Upload all your answers </label> <%= file_field_tag "file" %> <%= submit_tag "submit file" %>
+        <% end %>
+      </div>
+
       </div>
     <% else %>
       <p class="field-label">
