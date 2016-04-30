@@ -61,6 +61,7 @@ class TaskActivitiesController < ApplicationController
   end
 
   def retake
+    raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
     if current_user.is_in_training
       current_user.task_progresses.joins(:system_example).where('system_examples.is_for_training = TRUE').destroy_all
 
@@ -73,6 +74,7 @@ class TaskActivitiesController < ApplicationController
   end
 
   def upload_tasks
+    raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
     uploaded_file = params[:file]
     file_extension = File.extname(uploaded_file.original_filename)
 
