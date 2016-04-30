@@ -48,9 +48,6 @@ class TaskActivitiesController < ApplicationController
       else
         # user has finished all tasks
         @experiment_finished = true
-        if current_user.is_in_training
-          current_user.task_progresses.joins(:system_example).where('system_examples.is_for_training = TRUE').destroy_all
-        end
       end
     end
 
@@ -62,6 +59,19 @@ class TaskActivitiesController < ApplicationController
     end
 
   end
+
+  def retake
+    if current_user.is_in_training
+      current_user.task_progresses.joins(:system_example).where('system_examples.is_for_training = TRUE').destroy_all
+
+      respond_to do |format|
+        format.html { redirect_to :back, notice: 'You have decided to retake the experiment.' }
+        format.json { head :no_content }
+      end
+      return
+    end
+  end
+
   def upload_tasks
     uploaded_file = params[:file]
     file_extension = File.extname(uploaded_file.original_filename)

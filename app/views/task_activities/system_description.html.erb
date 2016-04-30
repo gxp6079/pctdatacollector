@@ -9,7 +9,7 @@
          This could be beneficial in your carrer as a programmer. Don't forget to submit your answers and log-out. Thank you.
       </p>
       <% if current_user.is_in_training %>
-        <p>As you are in training mode, submiting your answers is not mandatory. In training mode you can start the experiment all over again by going to our home url or by submitting the answers.</p>
+        <p>As you are in training mode, submiting your answers is not mandatory. In training mode you can start the experiment all over again by pressing the "Start again" button.</p>
       <% end %>
 
       <div class="innerform">
@@ -17,6 +17,13 @@
           <label for="file">Upload all your answers </label> <%= file_field_tag "file" %> <%= submit_tag "submit file" %>
         <% end %>
       </div>
+
+      <p class="buttons">
+        <%= link_to "Start again",
+                    {:controller => "task_activities", :action => "retake"},
+                    {id: "completetasks", class: "button", method: :get}
+        %>
+      </p>
 
       </div>
     <% else %>
