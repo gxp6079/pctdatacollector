@@ -8,6 +8,7 @@
       <p>Keep in contact with the project if you want to know about the results.
          This could be beneficial in your carrer as a programmer. Don't forget to submit your answers and log-out. Thank you.
       </p>
+
       <% if current_user.is_in_training %>
         <p>As you are in training mode, submiting your answers is not mandatory. In training mode you can start the experiment all over again by pressing the "Start again" button.</p>
       <% end %>
@@ -18,12 +19,14 @@
         <% end %>
       </div>
 
-      <p class="buttons">
-        <%= link_to "Start again",
-                    {:controller => "task_activities", :action => "retake"},
-                    {id: "completetasks", class: "button", method: :get}
-        %>
-      </p>
+      <% if current_user.is_in_training %>
+        <p class="buttons">
+          <%= link_to "Start again",
+                      {:controller => "task_activities", :action => "retake"},
+                      {id: "completetasks", class: "button", method: :get}
+          %>
+        </p>
+      <% end %>
 
       </div>
     <% else %>
