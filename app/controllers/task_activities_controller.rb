@@ -76,7 +76,7 @@ class TaskActivitiesController < ApplicationController
   def upload_tasks
     raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
     uploaded_file = params[:file]
-    file_extension = File.extname(uploaded_file.original_filename)
+    file_extension = File.extname(uploaded_file.original_filename) unless uploaded_file.nil?
 
     if uploaded_file.nil? || ![".doc", ".docx", ".odt"].include?(file_extension)
       respond_to do |format|
