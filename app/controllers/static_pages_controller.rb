@@ -19,9 +19,12 @@ class StaticPagesController < ApplicationController
       return
     end
 
+    training_mode = ""
+    training_mode = "training." if(current_user.is_in_training?)
+
     begin
       send_file(
-        "#{Rails.root}/public/task_documents/#{filename}",
+        "#{Rails.root}/public/task_documents/#{training_mode}#{filename}",
         filename: filename,
         type: "application/docx"
       )
