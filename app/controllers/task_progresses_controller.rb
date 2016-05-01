@@ -8,9 +8,9 @@ class TaskProgressesController < ApplicationController
   # GET /task_progresses.json
   def index
     @task_progresses = TaskProgress.joins(:system_example)
-                                   .select("system_examples.id, task_progresses.id, task_progresses.user_id, " +
+                                   .select("system_examples.id, system_examples.is_for_training, task_progresses.id, task_progresses.user_id, " +
                                            "task_progresses.task_id, task_progresses.done")
-                                   .distinct.order("task_progresses.user_id, system_examples.id, task_progresses.id")
+                                   .distinct.order("task_progresses.user_id, system_examples.is_for_training DESC, system_examples.id, task_progresses.id")
   end
 
   # GET /task_progresses/1
