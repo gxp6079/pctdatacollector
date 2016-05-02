@@ -7,9 +7,15 @@ class TaskProgressesController < ApplicationController
   # GET /task_progresses
   # GET /task_progresses.json
   def index
+    all_user = params[:user_id].nil?
+    if !params[:user_id].nil? && params[:user_id].empty?
+      all_user = true
+      params[:user_id] = current_user.id
+    end
     @task_progresses = TaskProgress.joins(:system_example)
                                    .select("system_examples.id, system_examples.is_for_training, task_progresses.id, task_progresses.user_id, " +
                                            "task_progresses.task_id, task_progresses.done")
+                                   .where("task_progresses.user_id = ? OR ?", params[:user_id], all_user)
                                    .distinct.order("task_progresses.user_id, system_examples.is_for_training DESC, system_examples.id, task_progresses.id")
   end
 
