@@ -5,51 +5,76 @@
 <div id="userid" data-userid="<%= current_user.id %>"></div>
 <div id="timetrackable" data-timetrackable="<%= current_user.is_time_trackable %>"></div>
 
-<% if current_user.has_role? :admin %>
-<div id="console">
-  <ul>
-    <% @files.each do |file_example| %>
-      <li data-time="0" data-field=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}" %>>
-        <%= file_example.name.split('.').first() %>: <span>0</span>s
-      </li>
-    <% end %>
-  </ul>
+<div id="content">
+  <div class="tv-tabs">
+    <label for="tv-tab-1" class="tv-tab">Source Code</label>
+    <label for="tv-tab-2" class="tv-tab">Question|Answer</label>
+  </div>
 </div>
-<% end %>
 
-<div id="srcmenu">
-  <ul>
+
+  <% if current_user.has_role? :admin %>
+  <div id="console">
+    <ul>
+      <% @files.each do |file_example| %>
+        <li data-time="0" data-field=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}" %>>
+          <%= file_example.name.split('.').first() %>: <span>0</span>s
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <% end %>
+
+  <div id="srcmenu">
+    <ul>
+      <% @files.each do |file_example| %>
+        <li><a class="sourcecode" href=<%= "#" + file_example.name.split('.').first() + "-#{file_example.id}" %> id=<%= file_example.name.split('.').first() + "-#{file_example.id}" %>>
+          <%= file_example.name %>
+        </a></li>
+      <% end %>
+      <li><a></a></li>
+      <p class="buttons">
+        <%= link_to "Task description",
+                    {:controller => "task_activities", :action => "system_description",
+                    :system => @system_randomly_selected }, {class: "button"}
+        %>
+      </p>
+      <p class="buttons">
+        <%= link_to "Finish task", task_activities_finish_path(task_progress: @task_progress), class: "button", :method=> :put, :data => {:confirm => 'Are you sure?'} %>
+      </p>
+    </ul>
+  </div>
+
+<div id="content">
+  <input id="tv-tab-1" name="tv-group" type="radio" class="tv-radio"/>
+  <div class="tv-content">
     <% @files.each do |file_example| %>
-      <li><a class="sourcecode" href=<%= "#" + file_example.name.split('.').first() + "-#{file_example.id}" %> id=<%= file_example.name.split('.').first() + "-#{file_example.id}" %>>
-        <%= file_example.name %>
-      </a></li>
+      <div id=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}"%> class="field">
+        <pre class="line-numbers"><code class="language-java">
+<%= file_example.code %>
+        </code></pre>
+      </div>
     <% end %>
-    <li><a></a></li>
-    <p class="buttons">
-      <%= link_to "Task description",
-                  {:controller => "task_activities", :action => "system_description",
-                  :system => @system_randomly_selected }, {class: "button"}
-      %>
-    </p>
-    <p class="buttons">
-      <%= link_to "Finish task", task_activities_finish_path(task_progress: @task_progress), class: "button", :method=> :put, :data => {:confirm => 'Are you sure?'} %>
-    </p>
-  </ul>
+  </div>
 </div>
 
 <div id="content">
-  <% @files.each do |file_example| %>
-    <div id=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}"%> class="field">
-      <pre class="line-numbers"><code class="language-java">
-<%= file_example.code %>
-      </code></pre>
+  <input id="tv-tab-2" name="tv-group" type="radio" class="tv-radio"/>
+  <div class="tv-content">
+    <div class="question">
+      <h2>Task name</h2>
+      <p> Question</p>
+      <p> Answer sheet</p>
     </div>
-  <% end %>
+  </div>
 </div>
+
 <!--  -->
 <script>
 
 $(".field").hide();
+
+$("#tv-tab-2").prop('checked', true);
 
 var taskid = $("#taskid").data("taskid");
 var systemid = $("#systemid").data("systemid");
@@ -85,6 +110,8 @@ $.screentime({
 });
 
 $(".sourcecode").click(function() {
+  $("#tv-tab-1").prop('checked', true);
+
   $(".field").hide();
   $(".sourcecode").removeClass("active");
   $("#data-" + this.id).show();
