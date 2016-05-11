@@ -20,9 +20,9 @@ class TaskActivitiesController < ApplicationController
 
   def finish
     raise CanCan::AccessDenied.new("You are not authorized to access this page.", :take, TaskActivity) if current_user.nil?
-    task_progress = TaskProgress.find(params[:task_progress])
+    task_progress = TaskProgress.find(params[:task_progress_id])
     task_progress.update_attribute(:done, true)
-    redirect_to task_activities_system_description_url
+    render js: "window.location = '#{task_activities_system_description_url}'"
   end
 
   def system_description

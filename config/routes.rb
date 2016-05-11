@@ -14,7 +14,7 @@ Rails.application.routes.draw do
   match 'task_activities/take', to: 'task_activities#take', via: [:get]
   match 'task_activities/retake', to: 'task_activities#retake', via: [:delete]
   match 'task_activities/system_description', to: 'task_activities#system_description', via: [:get]
-  match 'task_activities/finish', to: 'task_activities#finish', via: [:put]
+  match 'task_activities/finish', to: 'task_activities#finish', via: [:post]
 
   devise_for :users, path_names: {
     sign_up: ''

@@ -1,5 +1,5 @@
 <div id="file_example_names" data-files="<%=h @files.collect{|f| f.name.split('.').first() + "-#{f.id}"} %>"></div>
-<div id="task_progress" data-taskprogress="<%= @task_progress %>"></div>
+<div id="task_progress_id" data-taskprogressid="<%= @task_progress.id %>"></div>
 <div id="taskid" data-taskid="<%= @task_progress.task.id %>"></div>
 <div id="systemid" data-systemid="<%= @task_progress.task.system_example.id %>"></div>
 <div id="userid" data-userid="<%= current_user.id %>"></div>
@@ -39,9 +39,6 @@
                     :system => @system_randomly_selected }, {class: "button"}
         %>
       </p>
-      <p class="buttons">
-        <%= link_to "Finish task", task_activities_finish_path(task_progress: @task_progress), class: "button", :method=> :put, :data => {:confirm => 'Are you sure?'} %>
-      </p>
     </ul>
   </div>
 
@@ -65,6 +62,27 @@
       <h2>Task name</h2>
       <p> Question</p>
       <p> Answer sheet</p>
+      <div id="answermaxrow" data-answermaxrow=3></div>
+      <div id="answermaxcol" data-answermaxcol=2></div>
+      <table>
+        <tr>
+          <td><input type="checkbox" id="a1_1" value="true"></td><td>description 1</td>
+          <td><input type="checkbox" id="a1_2" value="true"></td><td>description 1</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" id="a2_1" value="true"></td><td>description 2</td>
+          <td><input type="checkbox" id="a2_2" value="true"></td><td>description 2</td>
+        </tr>
+        <tr>
+          <td><input type="checkbox" id="a3_1" value="true"></td><td>description 3</td>
+          <td><input type="checkbox" id="a3_2" value="true"></td><td>description 3</td>
+        </tr>
+      </table>
+
+      <p class="buttons">
+         <%= link_to "Finish task", '#', class: "button", :onclick => "doStuff(); return false" %>
+      </p>
+
     </div>
   </div>
 </div>
@@ -117,5 +135,26 @@ $(".sourcecode").click(function() {
   $("#data-" + this.id).show();
   $(this).addClass("active");
 });
+
+function doStuff() {
+  var answer = [];
+  var task_progress_id = $("#task_progress_id").data("taskprogressid");
+  var row = $("#answermaxrow").data("answermaxrow");
+  var col = $("#answermaxcol").data("answermaxcol");
+  var row_answer;
+
+  for (i = 1; i <= row; i++) {
+    row_answer = [];
+    for (j = 1; j <= col; j++) {
+      row_answer.push($('#a' + i + '_' + j).is(":checked"));
+     }
+     answer.push(row_answer);
+  }
+
+  // $.post('/task_activities/finish', { answer: answer, task_progress_id: task_progress_id } )
+
+  $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
+
+}
 
 </script>
