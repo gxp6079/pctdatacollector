@@ -71,7 +71,7 @@
       <%= @task_progress.task.html_question.html_safe %>
 
       <p class="buttons">
-         <%= link_to "Finish task", '#', class: "button", :onclick => "parseAndSendAnswer(); return false" %>
+         <%= link_to "Submit answer", '#', class: "button", :onclick => "parseAndSendAnswer(); return false" %>
       </p>
 
     </div>
@@ -141,9 +141,9 @@ function parseAndSendAnswer() {
      }
      answer.push(row_answer);
   }
-
-  $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
-
+  if (confirm('Please, confirm your answer submission.')) {
+    $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
+  }
 }
 
 </script>
