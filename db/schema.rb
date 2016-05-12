@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421180632) do
+ActiveRecord::Schema.define(version: 20160512002436) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20160421180632) do
     t.boolean  "done",       default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "answer",     default: "{}"
   end
 
   add_index "task_progresses", ["task_id"], name: "index_task_progresses_on_task_id", using: :btree
@@ -66,6 +67,7 @@ ActiveRecord::Schema.define(version: 20160421180632) do
     t.text     "description"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "html_question",     default: ""
   end
 
   add_index "tasks", ["system_example_id"], name: "index_tasks_on_system_example_id", using: :btree
