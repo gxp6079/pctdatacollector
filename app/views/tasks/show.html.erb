@@ -13,15 +13,51 @@
   <%= @task.name %>
 </p>
 
-<p>
-  <strong>Description:</strong>
-  <%= @task.description %>
-</p>
+<% match = @task.description.match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
+if match.nil? %>
+    <p>
+      <strong>Description:</strong>
+      <%= @task.description %>
+    </p>
+<% else %>
+    <p>
+      <strong>Java description:</strong>
+      <% match = @task.description.match(/<.java>(.+)<\/.java>/m)
+         if not match.nil? %>
+          <%= match[1] %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Trygve description:</strong>
+      <% match = @task.description.match(/<.k>(.+)<\/.k>/m)
+         if not match.nil? %>
+          <%= match[1] %>
+      <% end %>
+    </p>
+<% end %>
 
-<p>
-  <strong>HTML question:</strong>
-  <%= @task.html_question.html_safe %>
-</p>
+<% match = @task.html_question.match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
+if match.nil? %>
+    <p>
+      <strong>HTML question:</strong>
+      <%= @task.html_question.html_safe %>
+    </p>
+<% else %>
+    <p>
+      <strong>Java HTML question:</strong>
+      <% match = @task.html_question.match(/<.java>(.+)<\/.java>/m)
+         if not match.nil? %>
+        <%= match[1].html_safe %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Trygve HTML question:</strong>
+      <% match = @task.html_question.match(/<.k>(.+)<\/.k>/m)
+         if not match.nil? %>
+          <%= match[1].html_safe %>
+      <% end %>
+    </p>
+<% end %>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
