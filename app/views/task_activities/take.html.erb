@@ -139,13 +139,24 @@ function parseAndSendAnswer() {
   for (i = 1; i <= row; i++) {
     row_answer = [];
     for (j = 1; j <= col; j++) {
-      row_answer.push($('#a' + i + '_' + j).is(":checked"));
+      row_answer.push(returnValue($('#a' + i + '_' + j)));
      }
      answer.push(row_answer);
   }
+
   if (confirm('Please, confirm your answer submission.')) {
     $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
   }
 }
 
+function returnValue(element) {
+  // element can be a checkbox or an input
+  var retval;
+  if(element.is(':checkbox')) {
+    retval = element.is(":checked");
+  } else if (element.is(':input')) {
+    retval = element.val();
+  }
+  return retval;
+}
 </script>
