@@ -293,6 +293,16 @@ a:hover {
     text-decoration: overline;
     text-decoration: underline;
   }
+  li p a {
+    color: #b9ffef;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+  }
+  li p a:hover:not(.active) {
+    color: #fff;
+    padding: 8px 0 8px 16px;
+    text-decoration: none;
+  }
 
 .innertext {
   margin: 0 auto;

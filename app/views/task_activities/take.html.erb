@@ -33,12 +33,13 @@
         </a></li>
       <% end %>
       <li><a></a></li>
-      <p class="buttons">
-        <%= link_to "Task description",
+      <li><a></a></li>
+      <li><p>
+        <%= link_to "Back",
                     {:controller => "task_activities", :action => "system_description",
-                    :system => @system_randomly_selected }, {class: "button"}
+                    :system => @system_randomly_selected }
         %>
-      </p>
+      </p></li>
     </ul>
   </div>
 
