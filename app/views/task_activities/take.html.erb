@@ -86,7 +86,7 @@
       </table>
 
       <p class="buttons">
-         <%= link_to "Finish task", '#', class: "button", :onclick => "doStuff(); return false" %>
+         <%= link_to "Finish task", '#', class: "button", :onclick => "parseAndSendAnswer(); return false" %>
       </p>
 
     </div>
@@ -142,7 +142,7 @@ $(".sourcecode").click(function() {
   $(this).addClass("active");
 });
 
-function doStuff() {
+function parseAndSendAnswer() {
   var answer = [];
   var task_progress_id = $("#task_progress_id").data("taskprogressid");
   var row = $("#answermaxrow").data("answermaxrow");
