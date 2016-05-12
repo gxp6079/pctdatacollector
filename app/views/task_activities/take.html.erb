@@ -63,7 +63,7 @@
       <h3>System: <%= @task_progress.system_example.name %></h3>
       <h2>Task: <%= @task_progress.task.name %></h2>
 
-      <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\\#{current_user.group}>/)
+      <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/)
          if match.nil? %>
           <p><%= @task_progress.task.description %></p>
       <% else %>
