@@ -59,9 +59,15 @@
   <input id="tv-tab-2" name="tv-group" type="radio" class="tv-radio"/>
   <div class="tv-content">
     <div class="question">
-      <h2>Task name</h2>
-      <p> Question</p>
-      <p> Answer sheet</p>
+      <h2><%= @task_progress.task.name %></h2>
+
+      <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\\#{current_user.group}>/)
+         if match.nil? %>
+          <p><%= @task_progress.task.description %></p>
+      <% else %>
+          <p><%= match[1] %></p>
+      <% end %>
+
       <div id="answermaxrow" data-answermaxrow=3></div>
       <div id="answermaxcol" data-answermaxcol=2></div>
       <table>
@@ -150,8 +156,6 @@ function doStuff() {
      }
      answer.push(row_answer);
   }
-
-  // $.post('/task_activities/finish', { answer: answer, task_progress_id: task_progress_id } )
 
   $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
 
