@@ -6,11 +6,12 @@
       <div class="input">
       <h2>Thank you!</h2>
       <p>Keep in contact with the project if you want to know about the results.
-         This could be beneficial in your carrer as a programmer. Don't forget to submit your answers and log-out. Thank you.
+         This could be beneficial in your carrer as a programmer. Don't forget to log-out. Thank you.
       </p>
 
       <% if current_user.is_in_training %>
-        <p>As you are in training mode, submiting your answers is not mandatory. In training mode you can start the experiment all over again by pressing the "Start again" button.</p>
+        <p>As you are in training mode, you can start the experiment all over again by pressing the "Start again"
+        button when finishing the training.</p>
       <% end %>
 
       <div class="innerform">
@@ -34,18 +35,19 @@
         systems: <%= "#{@number_of_finished_systems}/#{@number_of_systems}" %> &nbsp
         tasks: <%= "#{@number_of_finished_tasks}/#{@number_of_tasks}" %>
       </p>
+      <h2><u>System <%= @number_of_finished_systems %></u>:</h2>
       <h1><%= @system_randomly_selected.name %></h1>
       <div class="input">
         <p><%= @system_randomly_selected.description %></p>
       </div>
 
       <div class="input">
+        <h2><u>Task <%= @number_of_finished_tasks %></u>:</h2>
         <h2><%= @task_randomly_selected.name %></h2>
-        <p><%= @task_randomly_selected.description %></p>
       </div>
 
       <p class="buttons">
-        <%= link_to "Complete tasks",
+        <%= link_to "Complete task",
                     {:controller => "task_activities", :action => "take"},
                     {id: "completetasks", class: "button", method: :get}
         %>
