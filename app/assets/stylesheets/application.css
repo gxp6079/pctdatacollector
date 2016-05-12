@@ -356,6 +356,16 @@ textarea {
   height: 100px;
 }
 
+.answersheet table {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  width: 100%; }
+
+.answersheet td {
+  border-color: #00b065;
+  border: 1px solid;
+  text-align: center; }
+
 /* Tabs */
 .tv-content {
   display: none;
