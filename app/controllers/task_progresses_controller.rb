@@ -81,6 +81,6 @@ class TaskProgressesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def task_progress_params
-      params.require(:task_progress).permit(:task_id, :user_id, :done)
+      params.require(:task_progress).permit(:task_id, :user_id, :done, :answer)
     end
 end
