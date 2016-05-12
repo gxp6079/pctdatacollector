@@ -59,7 +59,8 @@
   <input id="tv-tab-2" name="tv-group" type="radio" class="tv-radio"/>
   <div class="tv-content">
     <div class="question">
-      <h2><%= @task_progress.task.name %></h2>
+      <h3>System: <%= @task_progress.system_example.name %></h3>
+      <h2>Task: <%= @task_progress.task.name %></h2>
 
       <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\\#{current_user.group}>/)
          if match.nil? %>
