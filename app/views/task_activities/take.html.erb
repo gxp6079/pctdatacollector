@@ -68,22 +68,7 @@
           <p><%= match[1] %></p>
       <% end %>
 
-      <div id="answermaxrow" data-answermaxrow=3></div>
-      <div id="answermaxcol" data-answermaxcol=2></div>
-      <table>
-        <tr>
-          <td><input type="checkbox" id="a1_1" value="true"></td><td>description 1</td>
-          <td><input type="checkbox" id="a1_2" value="true"></td><td>description 1</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" id="a2_1" value="true"></td><td>description 2</td>
-          <td><input type="checkbox" id="a2_2" value="true"></td><td>description 2</td>
-        </tr>
-        <tr>
-          <td><input type="checkbox" id="a3_1" value="true"></td><td>description 3</td>
-          <td><input type="checkbox" id="a3_2" value="true"></td><td>description 3</td>
-        </tr>
-      </table>
+      <%= @task_progress.task.html_question.html_safe %>
 
       <p class="buttons">
          <%= link_to "Finish task", '#', class: "button", :onclick => "parseAndSendAnswer(); return false" %>
