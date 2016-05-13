@@ -63,14 +63,19 @@
       <h3>System: <%= @task_progress.system_example.name %></h3>
       <h2>Task: <%= @task_progress.task.name %></h2>
 
-      <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/)
+      <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/m)
          if match.nil? %>
           <p><%= @task_progress.task.description %></p>
       <% else %>
           <p><%= match[1] %></p>
       <% end %>
 
-      <%= @task_progress.task.html_question.html_safe %>
+      <% match = @task_progress.task.html_question.match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/m)
+         if match.nil? %>
+          <p><%= @task_progress.task.html_question.html_safe %></p>
+      <% else %>
+          <p><%= match[1].html_safe %></p>
+      <% end %>
 
       <p class="buttons">
          <%= link_to "Submit answer", '#', class: "button", :onclick => "parseAndSendAnswer(); return false" %>
