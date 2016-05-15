@@ -7,7 +7,7 @@ class Ability
     if user.has_role? :admin
       can :manage, :all
     elsif user.has_role? :subject
-      can [:home, :download_tasks], StaticPage
+      can [:home], StaticPage
       can :update, TaskProgress
       can :create, PermanenceTime
       can [:take, :system_description, :finish, :upload_tasks], TaskActivity

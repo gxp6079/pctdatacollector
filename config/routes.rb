@@ -32,7 +32,6 @@ Rails.application.routes.draw do
     resources :users
   end
 
-  match 'download_tasks', to: 'static_pages#download_tasks', via: [:get]
   match 'task_activities/upload_tasks', to: 'task_activities#upload_tasks', via: [:post]
 
   # The priority is based upon order of creation: first created -> highest priority.
