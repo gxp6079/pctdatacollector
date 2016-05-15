@@ -14,12 +14,6 @@
         button when finishing the training.</p>
       <% end %>
 
-      <div class="innerform">
-        <%= form_tag task_activities_upload_tasks_path, :multipart => true do %>
-          <label for="file">Upload all your answers </label> <%= file_field_tag "file" %> <%= submit_tag "submit file" %>
-        <% end %>
-      </div>
-
       <% if current_user.is_in_training %>
         <p class="buttons">
           <%= link_to "Start again",
