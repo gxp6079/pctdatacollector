@@ -27,7 +27,7 @@
 
   <div id="srcmenu">
     <ul>
-      <% @files.shuffle.each do |file_example| %>
+      <% @files.each do |file_example| %>
         <li><a class="sourcecode" href=<%= "#" + file_example.name.split('.').first() + "-#{file_example.id}" %> id=<%= file_example.name.split('.').first() + "-#{file_example.id}" %>>
           <%= file_example.name %>
         </a></li>

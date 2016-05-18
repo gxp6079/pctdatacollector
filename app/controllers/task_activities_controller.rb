@@ -13,6 +13,23 @@ class TaskActivitiesController < ApplicationController
       redirect_to task_activities_system_description_url
     else # a system and a task have been assigned
       @files = FileExample.all_by_user_group(current_user).where(system_example: in_progress_systems.first)
+
+      ##########################################
+      # Set the order from the field task_file_ids_order of the current user using stored_task_file_ids_order method
+      @files = @files.shuffle
+      file_ids = @files.collect{|f| f.id }
+
+      if current_user.stored_file_ids_has_exactly_the_same_elements_of? file_ids
+        # Use the stored file ids order
+        current_user.stored_task_file_ids_order.each_with_index do |stored_file_id, index|
+          @files.insert(index, @files.delete_at(@files.index(FileExample.find(stored_file_id))))
+        end
+      else
+        # Use the shuffled files
+        current_user.update_attribute(:task_file_ids_order, file_ids.to_s)
+      end
+      ##########################################
+
       @task_progress = current_user.task_progresses.where(done: false)
                                    .select{|pt| pt.system_example.is_for_training == current_user.is_in_training }.first
     end

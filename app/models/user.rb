@@ -66,6 +66,15 @@ class User < ActiveRecord::Base
     "Sorry, this account is not active."
   end
 
+  def stored_file_ids_has_exactly_the_same_elements_of? current_file_ids
+    stored_file_ids_order = stored_task_file_ids_order
+    (stored_file_ids_order - current_file_ids).empty? && (stored_file_ids_order.size == current_file_ids.size)
+  end
+
+  def stored_task_file_ids_order
+    eval(task_file_ids_order)
+  end
+
   private
     def role_name
       if not User.available_roles().include?(role)
