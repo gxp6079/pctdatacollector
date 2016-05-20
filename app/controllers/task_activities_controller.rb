@@ -66,6 +66,7 @@ class TaskActivitiesController < ApplicationController
       else
         # user has finished all tasks
         @experiment_finished = true
+        current_user.update_attribute(:training_done, true)
       end
     end
 
