@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160518183649) do
+ActiveRecord::Schema.define(version: 20160520043733) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 20160518183649) do
     t.boolean  "is_time_trackable",      default: false
     t.boolean  "is_in_training",         default: false
     t.string   "task_file_ids_order",    default: "[]"
+    t.boolean  "training_done",          default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
