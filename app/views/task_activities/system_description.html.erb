@@ -10,16 +10,23 @@
       </p>
 
       <% if current_user.is_in_training %>
-        <p>As you are in training mode, you can start the experiment all over again by pressing the "Start again"
-        button when finishing the training.</p>
+        <p>In training mode, you can start the experiment all over again by pressing the "Start again" button.</p>
       <% end %>
 
       <% if current_user.is_in_training %>
         <p class="buttons">
-          <%= link_to "Start again",
+          <%= link_to "Start again the training",
                       {:controller => "task_activities", :action => "retake"},
                       {id: "completetasks", class: "button", method: :delete}
           %>
+        </p>
+        <p>
+           If you are able to read <%= @language %> code and you are used to the type of questions, you can start
+           the real experiment. First you will have to complete a small pre-test about <b><%= @paradigm %></b> paradigm and
+           <b><%= @language %></b> language to start then with the experiment.
+        </p>
+        <p class="buttons">
+          <%= link_to "Take the pre-test", "#", class: "start-experiment-button" %>
         </p>
       <% end %>
 

@@ -77,6 +77,16 @@ class TaskActivitiesController < ApplicationController
       @number_of_finished_tasks = current_user.finished_tasks.where(system_example: @task_randomly_selected.system_example).size + 1
     end
 
+    if current_user.group == ".java"
+      @paradigm = "Object-Oriented"
+      @language = "java"
+    elsif current_user.group == ".k"
+      @paradigm = "Data Context Interaction"
+      @language = "trygve"
+    else
+      @paradigm = "n/a"
+      @language = "n/a"
+    end
   end
 
   def retake
