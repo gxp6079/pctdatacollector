@@ -8,6 +8,12 @@
     <%= @pre_test.description.html_safe %><br><br>
 
     <%= @pre_test.html_test.html_safe %>
+    <br>
+    <div align="center">
+      <p><u>Note</u>: by submitting the answer to the pre-test you will start with the real experiment and you
+      won't be able to re-take the training. If you want to re-take the training just navigate back using your
+      browser or click 'home' link in the menu.</p>
+    </div>
 
     <p class="buttons">
       <%= link_to "Submit answer & Start the Experiment", '#',
