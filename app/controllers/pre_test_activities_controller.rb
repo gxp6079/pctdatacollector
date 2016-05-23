@@ -1,4 +1,7 @@
 class PreTestActivitiesController < ApplicationController
+
+  load_and_authorize_resource
+
   def take
     @pre_test = PreTest.where("pre_tests.group = ?", current_user.group).first
   end

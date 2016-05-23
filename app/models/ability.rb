@@ -10,6 +10,7 @@ class Ability
       can [:home], StaticPage
       can :update, TaskProgress
       can :create, PermanenceTime
+      can [:take, :finish], PreTestActivity
       can [:take, :system_description, :finish], TaskActivity
       can [:retake], TaskActivity do |t|
         t.can_retake_experiment? user
