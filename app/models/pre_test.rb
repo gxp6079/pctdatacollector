@@ -1,3 +1,5 @@
 class PreTest < ActiveRecord::Base
-   validates_presence_of :description, :html_test, :correct_answer, :group
+  has_many :pre_test_answers, dependent: :restrict_with_exception
+
+  validates_presence_of :description, :html_test, :correct_answer, :group
 end
