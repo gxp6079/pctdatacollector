@@ -1,4 +1,6 @@
 class PreTestAnswersController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_pre_test_answer, only: [:show, :edit, :update, :destroy]
 
   # GET /pre_test_answers
