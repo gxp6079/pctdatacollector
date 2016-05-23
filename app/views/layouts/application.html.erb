@@ -31,6 +31,9 @@
       <% if can? :manage, :PermanenceTime %> <%= link_to "Times", permanence_times_path %> | <% end %>
       <% if can? :manage, :PreTest %> <%= link_to "Pre-tests", pre_tests_path %> | <% end %>
       <%= link_to 'Home', root_path %> |
+      <% if current_user.training_done? && current_user.pre_test_answers.size <= 0 %>
+        <%= link_to "Take pre-test", pre_test_activities_take_path %> |
+      <% end %>
       <%= link_to "Edit account", edit_user_registration_path %> |
       <%= current_user.email %>(<%= link_to "Sign out", destroy_user_session_path, :method=>'delete' %>)
     </div>
