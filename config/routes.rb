@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  resources :pre_tests
+
   resources :task_progresses, :except => [:new]
 
   resources :permanence_times, :except => [:new, :edit]

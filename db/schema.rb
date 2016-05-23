@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160520043733) do
+ActiveRecord::Schema.define(version: 20160523044319) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,15 @@ ActiveRecord::Schema.define(version: 20160520043733) do
   add_index "permanence_times", ["system_example_id"], name: "index_permanence_times_on_system_example_id", using: :btree
   add_index "permanence_times", ["task_id"], name: "index_permanence_times_on_task_id", using: :btree
   add_index "permanence_times", ["user_id"], name: "index_permanence_times_on_user_id", using: :btree
+
+  create_table "pre_tests", force: true do |t|
+    t.text     "description",    default: ""
+    t.text     "html_test",      default: ""
+    t.string   "correct_answer", default: "{}"
+    t.string   "group",          default: "n/a"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "system_examples", force: true do |t|
     t.string   "name"

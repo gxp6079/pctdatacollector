@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @pre_test.description %>
+</p>
+
+<p>
+  <strong>Html test:</strong>
+  <%= @pre_test.html_test %>
+</p>
+
+<p>
+  <strong>Correct answer:</strong>
+  <%= @pre_test.correct_answer %>
+</p>
+
+<p>
+  <strong>Group:</strong>
+  <%= @pre_test.group %>
+</p>
+
+<%= link_to 'Edit', edit_pre_test_path(@pre_test) %> |
+<%= link_to 'Back', pre_tests_path %>

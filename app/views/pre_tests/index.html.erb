@@ -1,0 +1,31 @@
+<h1>Listing pre_tests</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Description</th>
+      <th>Html test</th>
+      <th>Correct answer</th>
+      <th>Group</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pre_tests.each do |pre_test| %>
+      <tr>
+        <td><%= pre_test.description %></td>
+        <td><%= pre_test.html_test %></td>
+        <td><%= pre_test.correct_answer %></td>
+        <td><%= pre_test.group %></td>
+        <td><%= link_to 'Show', pre_test %></td>
+        <td><%= link_to 'Edit', edit_pre_test_path(pre_test) %></td>
+        <td><%= link_to 'Destroy', pre_test, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pre test', new_pre_test_path %>
