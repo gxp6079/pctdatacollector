@@ -1,4 +1,6 @@
 class PreTestsController < ApplicationController
+
+  load_and_authorize_resource
   before_action :set_pre_test, only: [:show, :edit, :update, :destroy]
 
   # GET /pre_tests
