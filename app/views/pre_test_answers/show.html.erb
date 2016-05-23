@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Pre test:</strong>
+  <%= @pre_test_answer.pre_test_id %>
+</p>
+
+<p>
+  <strong>User:</strong>
+  <%= @pre_test_answer.user_id %>
+</p>
+
+<p>
+  <strong>Answer:</strong>
+  <%= @pre_test_answer.answer %>
+</p>
+
+<%= link_to 'Edit', edit_pre_test_answer_path(@pre_test_answer) %> |
+<%= link_to 'Back', pre_test_answers_path %>

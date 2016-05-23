@@ -1,0 +1,29 @@
+<h1>Listing pre_test_answers</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Pre test</th>
+      <th>User</th>
+      <th>Answer</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @pre_test_answers.each do |pre_test_answer| %>
+      <tr>
+        <td><%= pre_test_answer.pre_test_id %></td>
+        <td><%= pre_test_answer.user_id %></td>
+        <td><%= pre_test_answer.answer %></td>
+        <td><%= link_to 'Show', pre_test_answer %></td>
+        <td><%= link_to 'Edit', edit_pre_test_answer_path(pre_test_answer) %></td>
+        <td><%= link_to 'Destroy', pre_test_answer, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Pre test answer', new_pre_test_answer_path %>
