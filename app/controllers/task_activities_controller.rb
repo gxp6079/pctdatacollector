@@ -95,7 +95,7 @@ class TaskActivitiesController < ApplicationController
       current_user.task_progresses.joins(:system_example).where('system_examples.is_for_training = TRUE').destroy_all
 
       respond_to do |format|
-        format.html { redirect_to :back, notice: 'You have decided to retake the experiment.' }
+        format.html { redirect_to :back, notice: 'You have decided to retake the training experiment.' }
         format.json { head :no_content }
       end
       return
