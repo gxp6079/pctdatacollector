@@ -6,7 +6,7 @@ class PreTestAnswersController < ApplicationController
   # GET /pre_test_answers
   # GET /pre_test_answers.json
   def index
-    @pre_test_answers = PreTestAnswer.all
+    @pre_test_answers = PreTestAnswer.all.where("pre_test_answers.pre_test_id = ? ", params[:pre_test_id])
   end
 
   # GET /pre_test_answers/1
