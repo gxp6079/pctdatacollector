@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
 
+  match 'pre_test_activities/take', to: 'pre_test_activities#take', via: [:get]
+  match 'pre_test_activities/finish', to: 'pre_test_activities#finish', via: [:post]
+
   resources :pre_test_answers
 
   resources :pre_tests

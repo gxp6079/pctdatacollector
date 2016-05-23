@@ -1,0 +1,54 @@
+<div id="pre_test_id" data-pretestid="<%= @pre_test.id %>"></div>
+
+<div id="information">
+  <div class="field">
+
+    <h1>Pre Test</h1>
+
+    <%= @pre_test.description.html_safe %><br><br>
+
+    <%= @pre_test.html_test.html_safe %>
+
+    <p class="buttons">
+      <%= link_to "Submit answer & Start the Experiment", '#',
+                    class: "start-experiment-button",
+                    onclick: "parseAndSendAnswer(); return false" %>
+    </p>
+
+  </div>
+</div>
+
+<script>
+
+function parseAndSendAnswer() {
+  var answer = [];
+  var pre_test_id = $("#pre_test_id").data("pretestid");
+  var row = $("#answermaxrow").data("answermaxrow");
+  var col = $("#answermaxcol").data("answermaxcol");
+  var row_answer;
+
+  for (i = 1; i <= row; i++) {
+    row_answer = [];
+    for (j = 1; j <= col; j++) {
+      row_answer.push(returnValue($('#a' + i + '_' + j)));
+     }
+     answer.push(row_answer);
+  }
+
+  if (confirm('Please, confirm your answer submission.')) {
+    $.post('/pre_test_activities/finish', { answer: JSON.stringify(answer), pre_test_id: pre_test_id } )
+  }
+}
+
+function returnValue(element) {
+  // element can be a checkbox or an input
+  var retval;
+  if(element.is(':checkbox')) {
+    retval = element.is(":checked");
+  } else if (element.is(':input')) {
+    retval = element.val();
+  }
+  return retval;
+}
+</script>
+
