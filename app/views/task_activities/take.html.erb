@@ -153,9 +153,24 @@ function parseAndSendAnswer() {
      answer.push(row_answer);
   }
 
-  if (confirm('Please, confirm your answer submission.')) {
-    $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
+  if(have_unanswered_questions(answer)) {
+    alert("You have some unanswered questions. Please, chose among 'true', 'false', or 'don't know' options regarding the understandability of the code.");
+  } else {
+    if (confirm('Please, confirm your answer submission.')) {
+      $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
+    }
   }
+}
+
+function have_unanswered_questions(answer) {
+  var retval = false;
+  for(var i = 0; i < answer.length; i++) {
+    if(answer[i][0] == "unanswered") {
+      retval = true;
+      break;
+    }
+  }
+  return retval;
 }
 
 function returnValue(element) {
