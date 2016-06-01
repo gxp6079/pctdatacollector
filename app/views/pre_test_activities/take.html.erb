@@ -41,8 +41,12 @@ function parseAndSendAnswer() {
      answer.push(row_answer);
   }
 
-  if (confirm('Please, confirm your answer submission.')) {
-    $.post('/pre_test_activities/finish', { answer: JSON.stringify(answer), pre_test_id: pre_test_id } )
+  if(have_unanswered_questions(answer)) {
+    alert("You have some unanswered questions. Please, choose among 'true', 'false', or 'don't know' options.");
+  } else {
+    if (confirm('Please, confirm your answer submission.')) {
+      $.post('/pre_test_activities/finish', { answer: JSON.stringify(answer), pre_test_id: pre_test_id } )
+    }
   }
 }
 
@@ -56,5 +60,17 @@ function returnValue(element) {
   }
   return retval;
 }
+
+function have_unanswered_questions(answer) {
+  var retval = false;
+  for(var i = 0; i < answer.length; i++) {
+    if(answer[i][0] == "unanswered") {
+      retval = true;
+      break;
+    }
+  }
+  return retval;
+}
+
 </script>
 
