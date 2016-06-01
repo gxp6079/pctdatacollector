@@ -2,12 +2,16 @@
   <div class="field">
 
     <% if @experiment_finished %>
-      <h1>Experiment is finished</h1>
-      <div class="input">
-      <h2>Thank you!</h2>
-      <p>Keep in contact with the project if you want to know about the results.
-         This could be beneficial in your carrer as a programmer. Don't forget to log-out. Thank you.
-      </p>
+      <% if current_user.is_in_training %>
+        <h1>Training is finished</h1>
+      <% else %>
+        <h1>Experiment is finished</h1>
+        <div class="input">
+        <h2>Thank you!</h2>
+        <p>Keep in contact with the project if you want to know about the results.
+           This could be beneficial in your carrer as a programmer. Don't forget to log-out. Thank you.
+        </p>
+      <% end %>
 
       <% if current_user.is_in_training %>
         <p>In training mode, you can start the experiment all over again by pressing the "Start again" button.</p>
@@ -22,8 +26,8 @@
         </p>
         <p>
            If you are able to read <%= @language %> code and you are used to the type of questions, you can start
-           the real experiment. First you will have to complete a small pre-test about <b><%= @paradigm %></b> paradigm and
-           <b><%= @language %></b> language to start then with the experiment.
+           the real experiment. First, you will have to complete a small pre-test about <b><%= @paradigm %></b> paradigm and
+           <b><%= @language %></b> language to start then with the real experiment.
         </p>
         <p class="buttons">
           <%= link_to "Take the pre-test", pre_test_activities_take_path, class: "start-experiment-button" %>
