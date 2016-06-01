@@ -156,7 +156,7 @@ function parseAndSendAnswer() {
   }
 
   if(have_unanswered_questions(answer)) {
-    alert("You have some unanswered questions. Please, chose among 'true', 'false', or 'don't know' options regarding the understandability of the code.");
+    alert("You have some unanswered questions. Please, choose some of the available options regarding the understandability of the code.");
   } else {
     if (confirm('Please, confirm your answer submission.')) {
       $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
