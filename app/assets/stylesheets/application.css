@@ -43,6 +43,7 @@ body {
   padding-top: 20px;
   position: relative;
   /*width: 1100px; */
+  text-align: justify;
   width: 70%; }
 
 #bottommenu, .inner {
