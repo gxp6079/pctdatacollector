@@ -5,28 +5,29 @@
 
     <h2>Registration:</h2>
     <p class="innertext">
-      Please, follow the link to the registration form to complete valuable information
-      regarding the source code comprehension experiment. After registering we will contact
-      to inform you about the next stps.
+      Please, press the buttom to access the registration form in order to complete valuable information
+      regarding the source code comprehension experiment. After registering we will contact you to inform
+      about the next steps to take.
       <p class="buttons">
       <%= link_to 'Registration Form', "https://docs.google.com/forms/d/1n98SbRqVUGwn0iDPvll1e2rUQFIcmAwLsV3v0DTJ5j4/viewform", :class => "button" %>
       </p>
     </p>
 
-    <h2>Experiment</h2>
+    <h2>Experiment:</h2>
     <p class="innertext">
       Sign in to start with the experimetal tasks about source code comprehension.
     </p>
+    <p>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name), :html => { :id => "loginform" }) do |f| %>
       <p align="center">
-        <%= f.email_field :email, autofocus: true, :placeholder => "email given", style: "text-align: center" %><br>
-        <%= f.password_field :password, autocomplete: "off", :placeholder => "password given", style: "text-align: center" %>
+        <%= f.email_field :email, autofocus: true, :placeholder => "user", style: "text-align: center" %><br>
+        <%= f.password_field :password, autocomplete: "off", :placeholder => "password", style: "text-align: center" %>
       </p>
       <p class="buttons">
         <%= link_to 'sign in', "", :onclick => "$('#loginform').submit()", :class => "button" %>
       </p>
     <% end %>
-
+    </p>
   </div>
 </div>
 
