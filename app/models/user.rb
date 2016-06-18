@@ -23,6 +23,10 @@ class User < ActiveRecord::Base
                  .distinct
   end
 
+  def finished_experiment
+    in_progress_systems.size <= 0 && unfinished_systems.size <= 0
+  end
+
   def unfinished_systems
     all_systems.select{ |system_example| !has_finished_system?(system_example) }
   end
