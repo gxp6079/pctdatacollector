@@ -72,6 +72,6 @@ class PermanenceTimesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def permanence_time_params
-      params.require(:permanence_time).permit(:task_id, :system_example_id, :file_example_id, :user_id, :seconds)
+      params.require(:permanence_time).permit(:task_id, :system_example_id, :file_example_id, :user_id, :seconds, :local_timestamp)
     end
 end

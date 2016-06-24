@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160523155143) do
+ActiveRecord::Schema.define(version: 20160624160956) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160523155143) do
     t.integer  "seconds"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.datetime "local_timestamp"
   end
 
   add_index "permanence_times", ["file_example_id"], name: "index_permanence_times_on_file_example_id", using: :btree
