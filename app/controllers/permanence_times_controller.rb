@@ -27,17 +27,12 @@ class PermanenceTimesController < ApplicationController
   # POST /permanence_times
   # POST /permanence_times.json
   def create
-    @permanence_time = PermanenceTime.new(permanence_time_params)
-
-    respond_to do |format|
-      if @permanence_time.save
-        format.html { redirect_to @permanence_time, notice: 'Permanence time was successfully created.' }
-        format.json { render :show, status: :created, location: @permanence_time }
-      else
-        format.html { render :new }
-        format.json { render json: @permanence_time.errors, status: :unprocessable_entity }
-      end
-    end
+    # Don't use AR for performance reasons
+    server_timestamp = DateTime.now.strftime('%Y-%m-%d %H:%M:%S.%3N')
+    PermanenceTime.connection.execute "INSERT INTO permanence_times (task_id, system_example_id, file_example_id, user_id, seconds, created_at, updated_at, local_timestamp) " +
+                               "VALUES (#{permanence_time_params['task_id']}, #{permanence_time_params['system_example_id']}, #{permanence_time_params['file_example_id']}, " +
+                               "#{permanence_time_params['user_id']}, #{permanence_time_params['seconds']}, '#{server_timestamp}', '#{server_timestamp}','#{permanence_time_params['local_timestamp']}')"
+    render :text => ""
   end
 
   # PATCH/PUT /permanence_times/1
