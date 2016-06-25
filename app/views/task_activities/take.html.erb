@@ -124,7 +124,7 @@ $.screentime({
         local_timestamp = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" +  ("00" + d.getDate()).slice(-2) + " " +
                         ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2) + "." + d.getMilliseconds();
 
-        $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: key.replace(/^\w+-\w+-/g, ''), seconds: 1, local_timestamp: local_timestamp } } )
+        $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: key.replace(/^\w+-\w+-/g, ''), seconds: 1, local_timestamp: local_timestamp } } );
       }
 
       var $elem = $('#console li[data-field="' + key + '"]');
