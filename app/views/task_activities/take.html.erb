@@ -38,7 +38,7 @@
       <li><p>
         <%= link_to "Back",
                     {:controller => "task_activities", :action => "system_description",
-                    :system => @system_randomly_selected }
+                    :system => @system_randomly_selected }, {:id => "back-link" }
         %>
       </p></li>
     </ul>
@@ -94,7 +94,6 @@
 <script>
 
 $(".field").hide();
-
 $("#tv-tab-2").prop('checked', true);
 
 var taskid = $("#taskid").data("taskid");
@@ -106,44 +105,75 @@ var isintrining = $("#isintrining").data("isintrining");
 var datafields = { fields: []};
 var jfiles=$("#file_example_names").data("files");
 
-$.each(jfiles, function(index, value) {
-  datafields['fields'].push({selector: '#data-' + value, name: 'data-' + value});
-});
+var current_file = "cur";
+var clicked_file = "clk";
+var totalTime = 0;
+var interval = 1000;
+var should_count_time = false;
 
-$.screentime({
-  fields: datafields['fields'],
-  reportInterval: 1,
-  callback: function(data) {
+moveTime();
 
-    $.each(data, function(key, val) {
+function moveTime() {
+  if(should_count_time == true) {
+    totalTime++;
 
-      if(timetrackable && !isintrining) {
-      // Post permanence time
-
-        var d = new Date();
-        local_timestamp = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" +  ("00" + d.getDate()).slice(-2) + " " +
-                        ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2) + "." + d.getMilliseconds();
-
-        $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: key.replace(/^\w+-\w+-/g, ''), seconds: 1, local_timestamp: local_timestamp } } );
-      }
-
-      var $elem = $('#console li[data-field="' + key + '"]');
-      var current = parseInt($elem.data('time'), 10);
-
-      $elem.data('time', current + val);
-      $elem.find('span').html(current += val);
-    });
+    // for debugging only (delete this)
+    var $elem = $('#console li[data-field="data-' + current_file + '"]');
+    $elem.find('span').html(totalTime);
   }
-});
 
+  setTimeout(function() {
+      moveTime();
+  }, interval);
+}
+
+// Files list
 $(".sourcecode").click(function() {
-  $("#tv-tab-1").prop('checked', true);
+  should_count_time = true;
+  clicked_file = this.id;
+  sendPost();
+  current_file = this.id;
 
+  $("#tv-tab-1").prop('checked', true);
   $(".field").hide();
   $(".sourcecode").removeClass("active");
   $("#data-" + this.id).show();
   $(this).addClass("active");
 });
+
+// Back link
+$("#back-link").click(function() {
+  should_count_time = false;
+  clicked_file = "back";
+  sendPost();
+});
+
+// Question tab
+$("#tv-tab-2").click(function() {
+  should_count_time = false;
+  clicked_file = "question-tab";
+  sendPost();
+});
+
+// Source tab
+$("#tv-tab-1").click(function() {
+  should_count_time = true;
+  clicked_file = current_file;
+  sendPost();
+});
+
+function sendPost() {
+  var d = new Date();
+  local_timestamp = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" +  ("00" + d.getDate()).slice(-2) + " " +
+                    ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2) + "." + d.getMilliseconds();
+
+  if(totalTime >= 1 && current_file != clicked_file) {
+    $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
+    // console.log("{ task_id: " + taskid + ",system_example_id: " + systemid + ",user_id: " + userid + ",file_example_id: " + current_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
+    totalTime = 0;
+  }
+
+}
 
 function parseAndSendAnswer() {
   var answer = [];
@@ -190,4 +220,22 @@ function returnValue(element) {
   }
   return retval;
 }
+
+$(window).focus(function() {
+  console.log("all files: " + jfiles);
+  console.log("current file: " + current_file);
+  console.log("clicked file: " + clicked_file);
+  if(current_file == clicked_file) {
+    should_count_time = true;
+  }
+});
+
+$(window).blur(function() {
+  var aux = clicked_file;
+  clicked_file = "blurred";
+  sendPost();
+  clicked_file = aux;
+  should_count_time = false;
+});
+
 </script>
