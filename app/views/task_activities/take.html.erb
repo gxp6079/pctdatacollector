@@ -111,20 +111,15 @@ var totalTime = 0;
 var interval = 1000;
 var should_count_time = false;
 
-moveTime();
+setInterval(moveTime, interval);
 
 function moveTime() {
   if(should_count_time == true) {
     totalTime++;
-
-    // for debugging only (delete this)
+    console.log(new Date());
     var $elem = $('#console li[data-field="data-' + current_file + '"]');
     $elem.find('span').html(totalTime);
   }
-
-  setTimeout(function() {
-      moveTime();
-  }, interval);
 }
 
 // Files list
@@ -168,11 +163,12 @@ function sendPost() {
                     ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2) + "." + d.getMilliseconds();
 
   if(totalTime >= 1 && current_file != clicked_file) {
-    $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
-    // console.log("{ task_id: " + taskid + ",system_example_id: " + systemid + ",user_id: " + userid + ",file_example_id: " + current_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
+    if(timetrackable && !isintrining) {
+      $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
+      console.log("{ task_id: " + taskid + ", system_example_id: " + systemid + ", user_id: " + userid + ", file_example_id: " + current_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
+    }
     totalTime = 0;
   }
-
 }
 
 function parseAndSendAnswer() {
