@@ -4,7 +4,7 @@
 <div id="systemid" data-systemid="<%= @task_progress.task.system_example.id %>"></div>
 <div id="userid" data-userid="<%= current_user.id %>"></div>
 <div id="timetrackable" data-timetrackable="<%= current_user.is_time_trackable %>"></div>
-<div id="isintrining" data-isintrining="<%= current_user.is_in_training %>"></div>
+<div id="isintraining" data-isintraining="<%= current_user.is_in_training %>"></div>
 
 <div class="content">
   <div class="tv-tabs">
@@ -100,7 +100,7 @@ var taskid = $("#taskid").data("taskid");
 var systemid = $("#systemid").data("systemid");
 var userid = $("#userid").data("userid");
 var timetrackable = $("#timetrackable").data("timetrackable");
-var isintrining = $("#isintrining").data("isintrining");
+var isintraining = $("#isintraining").data("isintraining");
 
 var datafields = { fields: []};
 var jfiles=$("#file_example_names").data("files");
@@ -164,7 +164,7 @@ function sendPost() {
                     ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2) + "." + d.getMilliseconds();
 
   if(totalTime >= 1 && current_file != clicked_file) {
-    if(timetrackable && !isintrining) {
+    if(timetrackable && !isintraining) {
       $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
       console.log("{ task_id: " + taskid + ", system_example_id: " + systemid + ", user_id: " + userid + ", file_example_id: " + current_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
     }
