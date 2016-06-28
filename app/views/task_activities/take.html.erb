@@ -190,7 +190,8 @@ function parseAndSendAnswer() {
     alert("You have some unanswered questions. Please, choose some of the available options regarding the understandability of the code.");
   } else {
     if (confirm('Please, confirm your answer submission.')) {
-      $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } )
+      $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } );
+      window.onbeforeunload = null;
     }
   }
 }
@@ -232,5 +233,9 @@ $(window).blur(function() {
   should_count_time = false;
   $(".content" ).addClass( "blur");
 });
+
+window.onbeforeunload = function() {
+  return false;
+}
 
 </script>
