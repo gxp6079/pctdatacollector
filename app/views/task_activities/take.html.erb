@@ -6,7 +6,7 @@
 <div id="timetrackable" data-timetrackable="<%= current_user.is_time_trackable %>"></div>
 <div id="isintrining" data-isintrining="<%= current_user.is_in_training %>"></div>
 
-<div id="content">
+<div class="content">
   <div class="tv-tabs">
     <label for="tv-tab-1" class="tv-tab">Source Code</label>
     <label for="tv-tab-2" class="tv-tab">Question|Answer</label>
@@ -44,7 +44,7 @@
     </ul>
   </div>
 
-<div id="content">
+<div class="content">
   <input id="tv-tab-1" name="tv-group" type="radio" class="tv-radio"/>
   <div class="tv-content">
     <% @files.each do |file_example| %>
@@ -57,7 +57,7 @@
   </div>
 </div>
 
-<div id="content">
+<div class="content">
   <input id="tv-tab-2" name="tv-group" type="radio" class="tv-radio"/>
   <div class="tv-content">
     <div class="question">
@@ -221,6 +221,7 @@ $(window).focus(function() {
   if(current_file == clicked_file) {
     should_count_time = true;
   }
+  $(".content" ).removeClass("blur");
 });
 
 $(window).blur(function() {
@@ -229,6 +230,7 @@ $(window).blur(function() {
   sendPost();
   clicked_file = aux;
   should_count_time = false;
+  $(".content" ).addClass( "blur");
 });
 
 </script>
