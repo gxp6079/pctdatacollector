@@ -110,6 +110,7 @@ var clicked_file = "clk";
 var totalTime = 0;
 var interval = 1000;
 var should_count_time = false;
+var in_submission_confirmation = false;
 
 setInterval(moveTime, interval);
 
@@ -190,10 +191,14 @@ function parseAndSendAnswer() {
   if(have_unanswered_questions(answer)) {
     alert("You have some unanswered questions. Please, choose some of the available options regarding the understandability of the code.");
   } else {
+    in_submission_confirmation = true;
     if (confirm('Please, confirm your answer submission.')) {
       $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } );
       window.onbeforeunload = null;
+    } else {
+      in_submission_confirmation = false;
     }
+
   }
 }
 
@@ -232,7 +237,9 @@ $(window).blur(function() {
   sendPost();
   clicked_file = aux;
   should_count_time = false;
-  $(".content" ).addClass( "blur");
+  if(!in_submission_confirmation) {
+    $(".content" ).addClass( "blur");
+  }
 });
 
 window.onbeforeunload = function() {
