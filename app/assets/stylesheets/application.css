@@ -428,5 +428,5 @@ textarea {
 }
 
 .blur {
-  visibility: hidden;
+  opacity: 0.05;
 }
