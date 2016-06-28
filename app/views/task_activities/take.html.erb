@@ -141,6 +141,7 @@ $("#back-link").click(function() {
   should_count_time = false;
   clicked_file = "back";
   sendPost();
+  window.onbeforeunload = null;
 });
 
 // Question tab
@@ -235,6 +236,11 @@ $(window).blur(function() {
 });
 
 window.onbeforeunload = function() {
+  $(".content" ).addClass( "blur");
+  var aux = clicked_file;
+  clicked_file = "onbeforeunload";
+  sendPost();
+  clicked_file = aux;
   return false;
 }
 
