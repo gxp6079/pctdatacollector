@@ -13,19 +13,6 @@
   </div>
 </div>
 
-
-  <% if current_user.has_role? :admin %>
-  <div id="console">
-    <ul>
-      <% @files.each do |file_example| %>
-        <li data-time="0" data-field=<%= "data-" + file_example.name.split('.').first() + "-#{file_example.id}" %>>
-          <%= file_example.name.split('.').first() %>: <span>0</span>s
-        </li>
-      <% end %>
-    </ul>
-  </div>
-  <% end %>
-
   <div id="srcmenu">
     <ul>
       <% @files.each do |file_example| %>
@@ -105,29 +92,22 @@ var isintraining = $("#isintraining").data("isintraining");
 var datafields = { fields: []};
 var jfiles=$("#file_example_names").data("files");
 
-var current_file = "cur";
-var clicked_file = "clk";
-var totalTime = 0;
-var interval = 1000;
-var should_count_time = false;
-
-setInterval(moveTime, interval);
-
-function moveTime() {
-  if(should_count_time == true) {
-    totalTime++;
-    console.log(new Date());
-    var $elem = $('#console li[data-field="data-' + current_file + '"]');
-    $elem.find('span').html(totalTime);
-  }
-}
+var start_timestamp;
+var click;
+var old_file = null;
+var current_file = null;
 
 // Files list
 $(".sourcecode").click(function() {
-  should_count_time = true;
-  clicked_file = this.id;
-  sendPost();
+  console.log("file list");
+  click = "files";
+  old_file = current_file;
   current_file = this.id;
+  if(current_file != old_file) {
+    sendPost();
+    start_timestamp = new Date();
+    console.log("start files: " + start_timestamp);
+  }
 
   $("#tv-tab-1").prop('checked', true);
   $(".field").hide();
@@ -138,24 +118,29 @@ $(".sourcecode").click(function() {
 
 // Back link
 $("#back-link").click(function() {
-  should_count_time = false;
-  clicked_file = "back";
-  sendPost();
+  console.log("back link");
+  if(click == "files") {
+    sendPost();
+  }
   window.onbeforeunload = null;
 });
 
 // Question tab
 $("#tv-tab-2").click(function() {
-  should_count_time = false;
-  clicked_file = "question-tab";
+  console.log("question tab");
+  click = "question";
   sendPost();
+  start_timestamp = null;
 });
 
 // Source tab
 $("#tv-tab-1").click(function() {
-  should_count_time = true;
-  clicked_file = current_file;
-  sendPost();
+  console.log("source tab");
+  if(click == "question") {
+    start_timestamp = new Date();
+    console.log("start source: " + start_timestamp);
+  }
+  click = "files"
 });
 
 function sendPost() {
@@ -163,12 +148,14 @@ function sendPost() {
   local_timestamp = d.getFullYear() + "-" + ("00" + (d.getMonth() + 1)).slice(-2) + "-" +  ("00" + d.getDate()).slice(-2) + " " +
                     ("00" + d.getHours()).slice(-2) + ":" + ("00" + d.getMinutes()).slice(-2) + ":" + ("00" + d.getSeconds()).slice(-2) + "." + d.getMilliseconds();
 
-  if(totalTime >= 1 && current_file != clicked_file) {
+  var end_timestamp = new Date();
+  totalTime = Math.round((end_timestamp - start_timestamp) / 100);
+  if(totalTime >= 10 && start_timestamp != null) {
     if(timetrackable && !isintraining) {
+      console.log("end: " + end_timestamp);
       $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
       console.log("{ task_id: " + taskid + ", system_example_id: " + systemid + ", user_id: " + userid + ", file_example_id: " + current_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
     }
-    totalTime = 0;
   }
 }
 
@@ -193,9 +180,7 @@ function parseAndSendAnswer() {
     if (confirm('Please, confirm your answer submission.')) {
       $.post('/task_activities/finish', { answer: JSON.stringify(answer), task_progress_id: task_progress_id } );
       window.onbeforeunload = null;
-    } else {
     }
-
   }
 }
 
@@ -221,28 +206,33 @@ function returnValue(element) {
   return retval;
 }
 
+// Windows events
 $(window).focus(function() {
-  if(current_file == clicked_file) {
-    should_count_time = true;
+  console.log("focus");
+  if(click == "files") {
+    start_timestamp = new Date();
+    console.log("start focus: " + start_timestamp);
   }
   $(".line-numbers" ).removeClass("blur");
 });
 
+// window.blur = function() {
 $(window).blur(function() {
-  var aux = clicked_file;
-  clicked_file = "blurred";
-  sendPost();
-  clicked_file = aux;
-  should_count_time = false;
+  console.log("blur");
+  if(click == "files") {
+    sendPost();
+    start_timestamp = null;
+  }
   $(".line-numbers" ).addClass( "blur");
 });
 
 window.onbeforeunload = function() {
+  console.log("onbeforeunload");
   $(".line-numbers" ).addClass( "blur");
-  var aux = clicked_file;
-  clicked_file = "onbeforeunload";
-  sendPost();
-  clicked_file = aux;
+  if(click == "files") {
+    sendPost();
+    start_timestamp = null;
+  }
   return false;
 }
 
