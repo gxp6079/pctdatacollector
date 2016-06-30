@@ -96,13 +96,14 @@ var current_file = null;
 
 // Files list
 $(".sourcecode").click(function() {
+  var old_click = click;
   click = "files";
-  old_file = current_file;
   current_file = this.id;
-  if(current_file != old_file) {
+  if((current_file != old_file) || old_click == "question") {
     sendPost();
     start_timestamp = new Date();
   }
+  old_file = current_file;
 
   $("#tv-tab-1").prop('checked', true);
   $(".field").hide();
@@ -143,7 +144,7 @@ function sendPost() {
   totalTime = Math.round((end_timestamp - start_timestamp) / 100);
   if(totalTime >= 10 && start_timestamp != null) {
     if(timetrackable && !isintraining) {
-      $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
+      $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: old_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
     }
   }
 }
