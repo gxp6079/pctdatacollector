@@ -89,9 +89,6 @@ var userid = $("#userid").data("userid");
 var timetrackable = $("#timetrackable").data("timetrackable");
 var isintraining = $("#isintraining").data("isintraining");
 
-var datafields = { fields: []};
-var jfiles=$("#file_example_names").data("files");
-
 var start_timestamp;
 var click;
 var old_file = null;
@@ -99,14 +96,12 @@ var current_file = null;
 
 // Files list
 $(".sourcecode").click(function() {
-  console.log("file list");
   click = "files";
   old_file = current_file;
   current_file = this.id;
   if(current_file != old_file) {
     sendPost();
     start_timestamp = new Date();
-    console.log("start files: " + start_timestamp);
   }
 
   $("#tv-tab-1").prop('checked', true);
@@ -118,7 +113,6 @@ $(".sourcecode").click(function() {
 
 // Back link
 $("#back-link").click(function() {
-  console.log("back link");
   if(click == "files") {
     sendPost();
   }
@@ -127,7 +121,6 @@ $("#back-link").click(function() {
 
 // Question tab
 $("#tv-tab-2").click(function() {
-  console.log("question tab");
   click = "question";
   sendPost();
   start_timestamp = null;
@@ -135,10 +128,8 @@ $("#tv-tab-2").click(function() {
 
 // Source tab
 $("#tv-tab-1").click(function() {
-  console.log("source tab");
   if(click == "question") {
     start_timestamp = new Date();
-    console.log("start source: " + start_timestamp);
   }
   click = "files"
 });
@@ -152,9 +143,7 @@ function sendPost() {
   totalTime = Math.round((end_timestamp - start_timestamp) / 100);
   if(totalTime >= 10 && start_timestamp != null) {
     if(timetrackable && !isintraining) {
-      console.log("end: " + end_timestamp);
       $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: current_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
-      console.log("{ task_id: " + taskid + ", system_example_id: " + systemid + ", user_id: " + userid + ", file_example_id: " + current_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
     }
   }
 }
@@ -208,17 +197,14 @@ function returnValue(element) {
 
 // Windows events
 $(window).focus(function() {
-  console.log("focus");
   if(click == "files") {
     start_timestamp = new Date();
-    console.log("start focus: " + start_timestamp);
   }
   $(".line-numbers" ).removeClass("blur");
 });
 
 // window.blur = function() {
 $(window).blur(function() {
-  console.log("blur");
   if(click == "files") {
     sendPost();
     start_timestamp = null;
@@ -227,7 +213,6 @@ $(window).blur(function() {
 });
 
 window.onbeforeunload = function() {
-  console.log("onbeforeunload");
   $(".line-numbers" ).addClass( "blur");
   if(click == "files") {
     sendPost();
