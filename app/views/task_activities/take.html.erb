@@ -142,9 +142,10 @@ function sendPost() {
 
   var end_timestamp = new Date();
   totalTime = Math.round((end_timestamp - start_timestamp) / 100);
-  if(totalTime >= 10 && start_timestamp != null) {
+  if(totalTime >= 4 && start_timestamp != null) {
     if(timetrackable && !isintraining) {
       $.post('/permanence_times', { permanence_time: { task_id: taskid, system_example_id: systemid, user_id: userid, file_example_id: old_file.replace(/^\w+-/g, ''), seconds: totalTime, local_timestamp: local_timestamp } } );
+      //console.log("{ task_id: " + taskid + ", system_example_id: " + systemid + ", user_id: " + userid + ", file_example_id: " + old_file.replace(/^\w+-/g, '') + ", seconds: " + totalTime + ", local_timestamp: " + local_timestamp + "}");
     }
   }
 }
