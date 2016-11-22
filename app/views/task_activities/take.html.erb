@@ -8,7 +8,6 @@
 
 <div class="content">
   <div class="tv-tabs">
-    <label for="tv-tab-1" class="tv-tab">Source Code</label>
     <label for="tv-tab-2" class="tv-tab">Question|Answer</label>
   </div>
 </div>
@@ -80,6 +79,8 @@
 <!--  -->
 <script>
 
+$(document).ready( function(){ $(".field").hide();} );
+
 $(".field").hide();
 $("#tv-tab-2").prop('checked', true);
 
@@ -125,14 +126,6 @@ $("#tv-tab-2").click(function() {
   click = "question";
   sendPost();
   start_timestamp = null;
-});
-
-// Source tab
-$("#tv-tab-1").click(function() {
-  if(click == "question") {
-    start_timestamp = new Date();
-  }
-  click = "files"
 });
 
 function sendPost() {
