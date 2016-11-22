@@ -12,8 +12,12 @@
   <%= @system_example.description %>
 </p>
 <p>
-  <strong>Name:</strong>
+  <strong>For training:</strong>
   <%= @system_example.is_for_training %>
+</p>
+<p>
+  <strong>Disabled:</strong>
+  <%= @system_example.disabled %>
 </p>
 
 <%= link_to 'Edit', edit_system_example_path(@system_example) %> |
