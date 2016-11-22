@@ -48,7 +48,8 @@ class TaskActivitiesController < ApplicationController
     # @system_randomly_selected = SystemExample.new
     # @task_randomly_selected = Task.new
 
-    in_progress_tasks = current_user.in_progress_tasks.select{|pt| pt.system_example.is_for_training == current_user.is_in_training }
+    in_progress_tasks = current_user.in_progress_tasks.select{|pt| pt.system_example.is_for_training == current_user.is_in_training &&
+                                                                   pt.system_example.disabled == false }
 
 
     if in_progress_tasks.size > 0

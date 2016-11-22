@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
     SystemExample.joins(:tasks)
                  .joins(:file_examples)
                  .where('system_examples.is_for_training = ?', is_in_training)
+                 .where('system_examples.disabled = ?', false)
                  .where('file_examples.name LIKE ?', '%' + group + '%')
                  .distinct
   end
