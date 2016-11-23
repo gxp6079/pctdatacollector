@@ -7,13 +7,16 @@
 <div id="isintraining" data-isintraining="<%= current_user.is_in_training %>"></div>
 
 <div class="content">
-  <div class="tv-tabs">
-    <label for="tv-tab-2" class="tv-tab">Question|Answer</label>
-  </div>
 </div>
 
   <div id="srcmenu">
     <ul>
+      <li><a>
+        <div class="tv-tabs">
+          <label for="tv-tab-2" class="tv-tab">Question|Answer</label>
+        </div>
+      </a></li>
+
       <% @files.each do |file_example| %>
         <li><a class="sourcecode" href=<%= "#" + file_example.name.split('.').first() + "-#{file_example.id}" %> id=<%= file_example.name.split('.').first() + "-#{file_example.id}" %>>
           <%= file_example.name %>
@@ -102,6 +105,7 @@ var click;
 var old_file = null;
 var current_file = null;
 
+var scroll_position = {};
 // Files list
 $(".sourcecode").click(function() {
   var old_click = click;
@@ -119,6 +123,9 @@ $(".sourcecode").click(function() {
   $(".sourcecode").removeClass("active");
   $("#data-" + this.id).show();
   $(this).addClass("active");
+
+  if(scroll_position[current_file] === undefined) { scroll_position[current_file] = 0; }
+  $(window).scrollTop(scroll_position[current_file]);
 });
 
 // Back link
@@ -129,8 +136,13 @@ $("#back-link").click(function() {
   window.onbeforeunload = null;
 });
 
+$(window).scroll(function() {
+  scroll_position[current_file] = $(window).scrollTop();
+});
+
 // Question tab
 $("#tv-tab-2").click(function() {
+  current_file = null;
   click = "question";
   sendPost();
   start_timestamp = null;
