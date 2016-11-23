@@ -79,7 +79,14 @@
 <!--  -->
 <script>
 
-$(document).ready( function(){ $(".field").hide();} );
+// Disable back button
+history.pushState(null, document.title, location.href);
+window.addEventListener('popstate', function (event)
+{
+  history.pushState(null, document.title, location.href);
+});
+
+$(document).ready( function(){ $(".field").hide(); $(".button").hide(); } );
 
 $(".field").hide();
 $("#tv-tab-2").prop('checked', true);
@@ -106,6 +113,7 @@ $(".sourcecode").click(function() {
   }
   old_file = current_file;
 
+  $(".button").show();
   $("#tv-tab-1").prop('checked', true);
   $(".field").hide();
   $(".sourcecode").removeClass("active");
