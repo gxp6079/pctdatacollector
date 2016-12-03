@@ -38,6 +38,10 @@
           <%= f.label :is_in_training %><br>
           <%= f.check_box :is_in_training %>
         </p>
+        <p>
+          <%= f.label :language %><br>
+          <%= f.select :language, options_for_select(['en', 'es'], selected: f.object.role) %>
+        </p>
       </td>
     </tr>
   </table>
