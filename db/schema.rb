@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161122164334) do
+ActiveRecord::Schema.define(version: 20161203230551) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -91,6 +91,29 @@ ActiveRecord::Schema.define(version: 20161122164334) do
 
   add_index "tasks", ["system_example_id"], name: "index_tasks_on_system_example_id", using: :btree
 
+  create_table "tmp_table", id: false, force: true do |t|
+    t.integer "t11"
+    t.integer "t12"
+    t.integer "t13"
+    t.integer "t14"
+    t.integer "t21"
+    t.integer "t22"
+    t.integer "t23"
+    t.integer "t24"
+    t.integer "t31"
+    t.integer "t32"
+    t.integer "t33"
+    t.integer "t34"
+    t.integer "t41"
+    t.integer "t42"
+    t.integer "t43"
+    t.integer "t44"
+    t.integer "t51"
+    t.integer "t52"
+    t.integer "t53"
+    t.integer "t54"
+  end
+
   create_table "users", force: true do |t|
     t.string   "email",                  default: "",        null: false
     t.string   "encrypted_password",     default: "",        null: false
@@ -111,6 +134,7 @@ ActiveRecord::Schema.define(version: 20161122164334) do
     t.boolean  "is_in_training",         default: false
     t.string   "task_file_ids_order",    default: "[]"
     t.boolean  "training_done",          default: false
+    t.string   "language",               default: "en"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
