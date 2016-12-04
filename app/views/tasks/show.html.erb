@@ -13,50 +13,120 @@
   <%= @task.name %>
 </p>
 
-<% match = @task.description.match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
-if match.nil? %>
+<strong>English language: ------------------------------------------------ </strong>
+<% match_desc_lang = @task.description.match(/en>(.+)<\/en>/m)
+if match_desc_lang.nil?%>
+  <% raise "Task description language not found in english <en>...</en>" %>
+<% else %>
+  <% match_desc_group = match_desc_lang[1].match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
+  if match_desc_group.nil? %>
     <p>
       <strong>Description:</strong>
-      <%= @task.description %>
+      <%= match_desc_lang[1] %>
     </p>
-<% else %>
+  <% else %>
     <p>
       <strong>Java description:</strong>
-      <% match = @task.description.match(/<.java>(.+)<\/.java>/m)
-         if not match.nil? %>
-          <%= match[1] %>
+      <% match_desc_group = match_desc_lang[1].match(/<.java>(.+)<\/.java>/m)
+         if not match_desc_group.nil? %>
+          <%= match_desc_group[1] %>
       <% end %>
     </p>
     <p>
       <strong>Trygve description:</strong>
-      <% match = @task.description.match(/<.k>(.+)<\/.k>/m)
-         if not match.nil? %>
-          <%= match[1] %>
+      <% match_desc_group = match_desc_lang[1].match(/<.k>(.+)<\/.k>/m)
+         if not match_desc_group.nil? %>
+          <%= match_desc_group[1] %>
       <% end %>
     </p>
+  <% end %>
 <% end %>
 
-<% match = @task.html_question.match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
-if match.nil? %>
-    <p>
-      <strong>HTML question:</strong>
-      <%= @task.html_question.html_safe %>
-    </p>
+
+<% match_question_lang = @task.html_question.match(/en>(.+)<\/en>/m)
+if match_question_lang.nil?%>
+  <% raise "Task question language not found in english <en>...</en>" %>
 <% else %>
+  <% match_question_group = match_question_lang[1].match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
+  if match_question_group.nil? %>
     <p>
-      <strong>Java HTML question:</strong>
-      <% match = @task.html_question.match(/<.java>(.+)<\/.java>/m)
-         if not match.nil? %>
-        <%= match[1].html_safe %>
+      <strong>Question:</strong>
+      <%= match_question_lang[1].html_safe %>
+    </p>
+  <% else %>
+    <p>
+      <strong>Java quesiton:</strong>
+      <% match_question_group = match_question_lang[1].match(/<.java>(.+)<\/.java>/m)
+         if not match_question_group.nil? %>
+          <%= match_question_group[1].html_safe %>
       <% end %>
     </p>
     <p>
-      <strong>Trygve HTML question:</strong>
-      <% match = @task.html_question.match(/<.k>(.+)<\/.k>/m)
-         if not match.nil? %>
-          <%= match[1].html_safe %>
+      <strong>Trygve quesiton:</strong>
+      <% match_question_group = match_question_lang[1].match(/<.k>(.+)<\/.k>/m)
+         if not match_question_group.nil? %>
+          <%= match_question_group[1].html_safe %>
       <% end %>
     </p>
+  <% end %>
+<% end %>
+
+
+<strong>Spanish language: ------------------------------------------------ </strong>
+<% match_desc_lang = @task.description.match(/es>(.+)<\/es>/m)
+if match_desc_lang.nil?%>
+  <% raise "Task description language not found in spanish <es>...</es>" %>
+<% else %>
+  <% match_desc_group = match_desc_lang[1].match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
+  if match_desc_group.nil? %>
+    <p>
+      <strong>Description:</strong>
+      <%= match_desc_lang[1] %>
+    </p>
+  <% else %>
+    <p>
+      <strong>Java description:</strong>
+      <% match_desc_group = match_desc_lang[1].match(/<.java>(.+)<\/.java>/m)
+         if not match_desc_group.nil? %>
+          <%= match_desc_group[1] %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Trygve description:</strong>
+      <% match_desc_group = match_desc_lang[1].match(/<.k>(.+)<\/.k>/m)
+         if not match_desc_group.nil? %>
+          <%= match_desc_group[1] %>
+      <% end %>
+    </p>
+  <% end %>
+<% end %>
+
+<% match_question_lang = @task.html_question.match(/es>(.+)<\/es>/m)
+if match_question_lang.nil?%>
+  <% raise "Task question language not found in spanish <es>...</es>" %>
+<% else %>
+  <% match_question_group = match_question_lang[1].match(/(<.k>.+<\/.k>.*<.java>.+<\/.java>)|(<.java>.+<\/.java>.*<.k>.+<\/.k>)/m)
+  if match_question_group.nil? %>
+    <p>
+      <strong>question:</strong>
+      <%= match_question_lang[1].html_safe %>
+    </p>
+  <% else %>
+    <p>
+      <strong>Java question:</strong>
+      <% match_question_group = match_question_lang[1].match(/<.java>(.+)<\/.java>/m)
+         if not match_question_group.nil? %>
+          <%= match_question_group[1].html_safe %>
+      <% end %>
+    </p>
+    <p>
+      <strong>Trygve question:</strong>
+      <% match_question_group = match_question_lang[1].match(/<.k>(.+)<\/.k>/m)
+         if not match_question_group.nil? %>
+          <%= match_question_group[1].html_safe %>
+      <% end %>
+    </p>
+  <% end %>
 <% end %>
 
 <%= link_to 'Edit', edit_task_path(@task) %> |

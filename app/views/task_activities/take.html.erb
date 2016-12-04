@@ -53,18 +53,28 @@
       <h3>System: <%= @task_progress.system_example.name %></h3>
       <h2>Task: <%= @task_progress.task.name %></h2>
 
-      <% match = @task_progress.task.description.match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/m)
-         if match.nil? %>
-          <p><%= @task_progress.task.description %></p>
+      <% match_desc_lang = @task_progress.task.description.match(/<#{current_user.language}>(.+)<\/#{current_user.language}>/m)
+      if match_desc_lang.nil?%>
+        <% raise "Task description language not understood for current user: #{current_user.language}" %>
       <% else %>
-          <p><%= match[1] %></p>
+        <% match_desc_group = match_desc_lang[1].match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/m)
+           if match_desc_group.nil? %>
+            <p><%= match_desc_lang[1] %></p>
+        <% else %>
+            <p><%= match_desc_group[1] %></p>
+        <% end %>
       <% end %>
 
-      <% match = @task_progress.task.html_question.match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/m)
-         if match.nil? %>
-          <p><%= @task_progress.task.html_question.html_safe %></p>
+      <% match_question_lang = @task_progress.task.html_question.match(/<#{current_user.language}>(.+)<\/#{current_user.language}>/m)
+      if match_question_lang.nil?%>
+        <% raise "Task question language not understood for current user: #{current_user.language}" %>
       <% else %>
-          <p><%= match[1].html_safe %></p>
+        <% match_question_group = match_question_lang[1].match(/<#{current_user.group}>(.+)<\/#{current_user.group}>/m)
+           if match_question_group.nil? %>
+            <p><%= match_question_lang[1].html_safe %></p>
+        <% else %>
+            <p><%= match_question_group[1].html_safe %></p>
+        <% end %>
       <% end %>
 
       <p class="buttons">
