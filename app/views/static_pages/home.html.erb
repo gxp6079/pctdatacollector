@@ -1,41 +1,84 @@
 <div id="information">
   <div class="field">
     <h1><%= @static_pages.title() %></h1>
-    <h2>Source Code Comprehension Experiment</h2>
-    <p>In this experiment you will be asked to complete a series of program comprehension
-       tasks related to software maintenance. There are five system examples for the experiment
-       and another two to be used for training purposes. You will be asked to inspect the source
-       code for each system in order to complete the comprehension tasks.
-    </p>
-    <p>
-      The tasks are given to you together with the source code in the same page. Each task
-      encompasses at most six small questions and you have to answer them by selecting the options
-      given. You have to read the code to answer the questions. You can read the code by clicking
-      on the file names presented at left and enter your answer by clicking the tab named
-      "Question|Answer". Once you have finished each task you have to press the button "Submit answer"
-      and confirm the finalization of the task. You cannot repeat a task during the experiment,
-      therefore when you finish a task you go to the next one or finish the experiment.
-    </p>
+    <% if current_user.language == 'es' %>
+      <h2>Experimento de comprensión de código</h2>
+      <p>
+        En este experimento te pedimos que completes una serie de tareas de comprención de código
+        relacionada con el mantenimineto de software. Hay tres sistemas para el experimento y otros 
+        dos para ser usados para entrenamiento. Te pedimos que inspecciones el código fuente de cada sistema
+        para completar las tareas de comprensión.
+      </p>
+      <p>
+        Las tareas son dadas junto con el código fuente en la misma página. Cada tarea comprende a lo sumo
+        seis preguntas y tienes que contestarlas seleccionando las opciones dadas. Tienes que leer el código
+        que creas necesario para responder las preguntas correctamente, no te pedimos leer el sistem en su totalidad
+        antes de contestar. Puedes leer el código haciendo click en los archivos en el menú de la izquierda y
+        completar la respuesta haciendo click en el link "Question|Answer". Una vez que finalizas cada tarea,
+        debes presionar "Submit answer" para enviar la respuesta y luego confirmar el envío. No puedes repetir una
+        tarea durante el experimento, por lo tanto, si finalizas una tarea pasas a la próxima tarea o finalizas el experimento.
+      </p>
 
-    <p>
-      For each system there are three tasks with true/false questions and one task with an ordering
-      question. All questions have a "don't know" option to avoid forcing people to answer when
-      the answer remains unknown. We want to make clear that we are not grading people, we are measuring
-      how comprehensible is the source code and a "don't know" answer gives us as valuable information
-      as any other answer.
-    </p>
+      <p>
+        Por cada sistem hay tres preguntas true/false y una pregunta para ordenar pasos. Todas las preguntas tienen
+        una opción "don't know" de respuesta para evitar forzar reponder verdadero o falso cuando el participante no
+        sabe la respuesta. Queremos aclarar que no estamos evaluando las personas, estamos midiendo la comprensibilidad
+        del código, y una respuesta "don't know"  nos dá también información valuable.
+      </p>
 
-    <p>
-      The entire experiment is estimated to be complete between 50 minutes and 1 and a half hour. It is not
-      required to finish the experiment all at once, you can resume the experiment at the same point you
-      left any time. Even though we have no time restriction, we value more correct answers given in a smaller
-      span of time.
-    </p>
+      <p>
+        Se estima que el experimento puede ser terminado entre 90 minutos y 1 hora y media. No se require terminar el 
+        experimento de una sóla vez, puedes dejarlo y continuar luego en el mismo lugar donde lo dejaste. Por favor, no dejes  ningún 
+        sistema a medias sin completar todas las preguntas del mismo, de otra forma, tendrás que re-aprender el sistema
+        cuando lo re-tomes. Este re-aprendizaje representa un ruido indeseable para nuestras mediciones. A pesar de que
+        no hay restricción de timepo, aclaramos que valoramos más las respuestas correctas dadas en un espacio pequeño de tiempo.
+      </p>
 
-    <p>
-      On the bottom of the page there is a small menu where you can access to your account
-      information given for the experiment and log-out of the site.
-    </p>
+      <p>
+        En la parte inferior de la página hay un pequeño menú donde tendrás acceso a la información de tu cuenta 
+        para este experimento y podrás deslogearte del sistema.
+      </p>
+    <% else %>
+      <h2>Source Code Comprehension Experiment</h2>
+      <p>
+        In this experiment you will be asked to complete a series of program comprehension
+        tasks related to software maintenance. There are three system examples for the experiment
+        and another two to be used for training purposes. You will be asked to inspect the source
+        code for each system in order to complete comprehension tasks.
+      </p>
+      <p>
+        The tasks are given to you together with the source code in the same page. Each task
+        encompasses at most six small questions and you have to answer them by selecting the options
+        given. You have to read the code you think necessary to answer the questions correctly, we don't
+        request you to read the entire system before answer the questions. You can read the code by clicking
+        on the file names presented at left and enter your answer by clicking the tab named
+        "Question|Answer". Once you have finished each task you have to press the button "Submit answer"
+        and confirm the finalization of the task. You cannot repeat a task during the experiment,
+        therefore when you finish a task you go to the next one or finish the experiment.
+      </p>
+
+      <p>
+        For each system there are three tasks with true/false questions and one task with an ordering
+        question. All questions have a "don't know" option to avoid forcing submitting a true/false response when
+        the participant does not known the answer. We want to make clear that we are not grading people, we are measuring
+        how comprehensible is the source code and a "don't know" answer gives us as valuable information
+        as any other answer.
+      </p>
+
+      <p>
+        The entire experiment is estimated to be completed between 90 minutes and 1 and a half hour. It is not
+        required to finish the experiment all at once,you can resume the experiment any time at the same point you
+        left. But please, do not leave any system example without finishing all its questions, otherwise you will 
+        have to relearn the system example when you take the remaining questions next time. This relearning time 
+        represents undesirable noise for our measures. Even though we have no time restriction, we value more correct
+        answers given in a smaller span of time.
+      </p>
+
+      <p>
+        On the bottom of the page there is a small menu where you can access to your account
+        information given for the experiment and log-out of the site.
+      </p>
+    <% end %>    
 
     <p class="buttons">
       <%= link_to "Start the experiment ",
