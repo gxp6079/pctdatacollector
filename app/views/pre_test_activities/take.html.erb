@@ -21,9 +21,14 @@
 
     <br>
     <div align="center">
-      <p><u>Note</u>: by submitting the answer to the pre-test you will start with the real experiment and you
-      won't be able to re-take the training. If you want to re-take the training just navigate back using your
-      browser or click 'home' link in the menu.</p>
+      <% if current_user.language == 'en' %>
+        <p><u>Note</u>: by submitting the answers to the pre-test you will start with the real experiment and you
+        won't be able to re-take the training. If you want to re-take the training just navigate back using your
+        browser or click 'home' link in the menu.</p>
+      <% elsif current_user.language == 'es' %>
+        <p><u>Nota</u>: al enviar las respuestas del pre-test usted comenzará con el experimento real y no será
+        posible re-tomar el training. Si usted quire retomar el training navegue hacia atras o presione 'home' en el menú.</p>
+      <% end %>
     </div>
 
     <p class="buttons">
