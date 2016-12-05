@@ -43,7 +43,14 @@
       <h2><u>System <%= @number_of_finished_systems %></u>:</h2>
       <h1><%= @system_randomly_selected.name %></h1>
       <div class="input">
-        <p><%= @system_randomly_selected.description %></p>
+
+        <% match_desc_lang = @system_randomly_selected.description.match(/<#{current_user.language}>(.+)<\/#{current_user.language}>/m)
+        if match_desc_lang.nil?%>
+          <% raise "System description language not understood for current user: #{current_user.language}" %>
+        <% else %>
+          <p><%= match_desc_lang[1] %></p>
+        <% end %>
+
       </div>
 
       <div class="input">
