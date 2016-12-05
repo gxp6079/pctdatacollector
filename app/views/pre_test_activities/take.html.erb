@@ -5,9 +5,20 @@
 
     <h1>Pre Test</h1>
 
-    <%= @pre_test.description.html_safe %><br><br>
+    <% match_desc_lang = @pre_test.description.match(/<#{current_user.language}>(.+)<\/#{current_user.language}>/m)
+    if match_desc_lang.nil?%>
+      <% raise "Pre-test description language not understood for current user: #{current_user.language}" %>
+    <% else %>
+      <%= match_desc_lang[1].html_safe %><br><br>
+    <% end %>
 
-    <%= @pre_test.html_test.html_safe %>
+    <% match_html_test_lang = @pre_test.html_test.match(/<#{current_user.language}>(.+)<\/#{current_user.language}>/m)
+    if match_html_test_lang.nil?%>
+      <% raise "Pre-test description language not understood for current user: #{current_user.language}" %>
+    <% else %>
+      <%= match_html_test_lang[1].html_safe %>
+    <% end %>
+
     <br>
     <div align="center">
       <p><u>Note</u>: by submitting the answer to the pre-test you will start with the real experiment and you

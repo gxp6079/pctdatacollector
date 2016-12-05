@@ -3,15 +3,46 @@
 
 <h1>Pre test</h1>
 
-<p>
-  <strong>Description:</strong>
-  <%= @pre_test.description %>
-</p>
 
-<p>
-  <strong>Html test:</strong>
-  <%= @pre_test.html_test.html_safe %>
-</p>
+<strong>English language: ------------------------------------------------ </strong>
+
+<% match_desc_lang = @pre_test.description.match(/en>(.+)<\/en>/m)
+if match_desc_lang.nil?%>
+  <% raise "Task description language not found in english <en>...</en>" %>
+<% else %>
+  <p>
+    <%= match_desc_lang[1].html_safe %>
+  </p>
+<% end %>
+
+<% match_pretest_lang = @pre_test.html_test.match(/en>(.+)<\/en>/m)
+if match_pretest_lang.nil?%>
+  <% raise "Task description language not found in spanish <es>...</es>" %>
+<% else %>
+  <p>
+    <%= match_pretest_lang[1].html_safe %>
+  </p>
+<% end %>
+
+<strong>Spanish language: ------------------------------------------------ </strong>
+
+<% match_desc_lang = @pre_test.description.match(/es>(.+)<\/es>/m)
+if match_desc_lang.nil?%>
+  <% raise "Task description language not found in english <en>...</en>" %>
+<% else %>
+  <p>
+    <%= match_desc_lang[1].html_safe %>
+  </p>
+<% end %>
+
+<% match_pretest_lang = @pre_test.html_test.match(/es>(.+)<\/es>/m)
+if match_pretest_lang.nil?%>
+  <% raise "Task description language not found in spanish <es>...</es>" %>
+<% else %>
+  <p>
+    <%= match_pretest_lang[1].html_safe %>
+  </p>
+<% end %>
 
 <p>
   <strong>Correct answer:</strong>
